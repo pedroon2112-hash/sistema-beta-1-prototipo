@@ -1,0 +1,75 @@
+{
+  "iteration": 1,
+  "mode": "generate",
+  "summary": "All 8 UI-facing acceptance criteria verified via browser checks. No API-bearing criteria exist for this prompt (app is 100% frontend; only template probe /api/status exists, out of scope). All checks passed on first run.",
+  "passed": 8,
+  "failed": 0,
+  "flaky": 0,
+  "blocked": 0,
+  "test_error": 0,
+  "retest_needed": false,
+  "bugs": [],
+  "action_items": [],
+  "checks": [
+    {
+      "criterion": "Tela inicial não abre o cardápio direto: mostra identidade GalegonN e duas opções grandes [NO LOCAL] e [DELIVERY], sem exigir cadastro/login",
+      "name": "home-no-login-mode-selection",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "mode-local-button and mode-delivery-button visible on /; 0 password/email/login inputs found; DELIVERY click reaches /cardapio (menu-section-pizzas visible); NO LOCAL click reaches /local (table-select-grid visible)."
+    },
+    {
+      "criterion": "Mesa via URL (QR Code): /local?mesa=5 reconhece a Mesa 5 e permite seguir ao cardápio; seleção manual também funciona",
+      "name": "table-select-qr-and-manual",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "/local?mesa=5 shows table-qr-hint and table-option-btn-5 aria-pressed=true; grid text contains none of livre/ocupada/reservada/dispon*; after confirm header-mode-badge shows 'Mesa 05'. Manual flow on /local (no param, no hint) selecting mesa 9 -> header-mode-badge 'Mesa 09'."
+    },
+    {
+      "criterion": "Local e Delivery compartilham o MESMO catálogo e o MESMO carrinho",
+      "name": "shared-cart-across-modes",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Added Tilápia Crocante (R$28,90) in delivery mode; cart-total noted. Navigated to /local?mesa=5, confirmed table; cart-total identical and cart-item-row-0 still present. Same product/price (28,90) visible in local mode menu."
+    },
+    {
+      "criterion": "Pizza: cada sabor aparece uma única vez com variantes Média/Grande e o preço atualiza ao trocar o tamanho",
+      "name": "pizza-variant-single-flavor-price",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "product-card-pizza-portuguesa count=1 within menu-section-pizzas; page text has no 'Pizzas Médias'/'Pizzas Grandes'; pizza-size-toggle-media shows R$39,99 and add-to-cart-submit-btn shows 39,99; toggling to grande updates button to 43,99."
+    },
+    {
+      "criterion": "Prato montado: até 3 acompanhamentos INCLUSOS que NÃO somam ao preço; a 4ª seleção é bloqueada mas permite desmarcar e trocar",
+      "name": "parmegiana-included-accompaniments-limit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Selecting pure-batata, arroz-com-alho, tropeiro keeps add-to-cart-submit-btn at 'Adicionar • R$27,90' and accompaniment-counter shows '3 de 3'; farofa-de-ovo option has aria-disabled=true and click has no effect (still 3 de 3, aria-pressed=false); deselecting pure-batata drops to '2 de 3' and farofa-de-ovo can then be selected back to '3 de 3'."
+    },
+    {
+      "criterion": "Adicional EXTRA é pago à parte e soma corretamente (distinto do acompanhamento incluso)",
+      "name": "parmegiana-extra-addon-paid",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "With 3 inclusos selected, extra-qty-plus-ovo-frito (R$3,50) changes button to 'Adicionar • R$31,40' (27.90+3.50); adding extra-qty-plus-farofa-de-ovo (R$7,00) changes it to R$38,40 (31.40+7.00)."
+    },
+    {
+      "criterion": "Bebida configurável mostra somente seus próprios sabores e exige a escolha antes de adicionar",
+      "name": "beverage-flavor-required-selection",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "suco-polpa-300ml sheet: add-to-cart-submit-btn disabled until flavor chosen; 7 flavor options present (Abacaxi com Hortelã, Goiaba, Manga, Morango, Cupuaçu, Acerola, Cajá); selecting manga enables button at R$8,00. suco-natural-300ml has exactly 2 flavor options (Laranja, Limão). agua-sem-gas has 0 option-* buttons and add button already enabled."
+    },
+    {
+      "criterion": "Carrinho distingue configurações, controla quantidade e o Delivery finaliza em formulário SEM confirmação falsa de envio",
+      "name": "cart-lines-qty-and-checkout-flows",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Pizza Portuguesa Média/Grande and Suco Manga/Acerola produced 4 distinct cart-item-row entries; cart-qty-plus/minus on row 0 changed then restored cart-total; remove dropped rows to 3. checkout-open-btn opened delivery-form; submitting empty showed 4 field errors; valid submit reached order-confirmation-summary + no-send-notice (text contains 'não'+'enviado'); page body contains neither 'pedido enviado' nor 'cozinha recebeu'. Local mode (/local?mesa=5) shows local-checkout-notice and 0 checkout-open-btn elements in cart."
+    }
+  ],
+  "notes": [
+    "No API-bearing criteria: seed_facts confirm this prompt is 100% frontend with only the template probe /api/status on backend, which is out of scope of the acceptance_matrix. No backend test files were required/added.",
+    "spec_deviations (no order submission, no admin/login, placeholder restaurant info/images) were treated as intentional per briefing and not reported as bugs."
+  ]
+}

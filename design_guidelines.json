@@ -1,0 +1,285 @@
+{
+  "theme": "dark_and_light_warm_palette",
+  "archetype": "ARCHETYPE 1: ORGANIC & WARM ARTISANAL FOOD",
+  "typography": {
+    "font_family_heading": "Outfit, sans-serif",
+    "font_family_body": "Plus Jakarta Sans, sans-serif",
+    "scale_px": {
+      "display": 48,
+      "h1": 36,
+      "h2": 28,
+      "h3": 22,
+      "body": 16,
+      "caption": 14
+    },
+    "letter_spacing": {
+      "headings": "-0.02em",
+      "labels": "0.05em"
+    },
+    "line_heights": {
+      "heading": "1.15",
+      "body": "1.5"
+    }
+  },
+  "colors": {
+    "surfaces": [
+      {
+        "name": "page_dark",
+        "kind": "solid",
+        "bg": "#121214",
+        "on_bg": "#F4F4F5",
+        "on_bg_muted": "#A1A1AA",
+        "roles": {
+          "price_tag": "#F97316",
+          "success": "#22C55E",
+          "error": "#EF4444",
+          "border": "#27272A"
+        }
+      },
+      {
+        "name": "card_dark",
+        "kind": "solid",
+        "bg": "#18181B",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "border": "#2E2E33",
+          "highlight": "#FB923C"
+        }
+      },
+      {
+        "name": "header_glass",
+        "kind": "glass",
+        "contrast_against": "#18181B",
+        "guarantee": "backdrop-blur-md bg-zinc-950/85 border-b border-zinc-800/80 shadow-md",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#A1A1AA",
+        "roles": {
+          "badge": "#EA580C"
+        }
+      },
+      {
+        "name": "cart_drawer_surface",
+        "kind": "solid",
+        "bg": "#1E1E24",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "total_badge": "#EA580C",
+          "item_border": "#2D2D38"
+        }
+      },
+      {
+        "name": "modal_config_surface",
+        "kind": "solid",
+        "bg": "#18181B",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#A1A1AA",
+        "roles": {
+          "option_selected_bg": "#EA580C22",
+          "option_selected_border": "#EA580C",
+          "counter_bg": "#27272A"
+        }
+      },
+      {
+        "name": "hero_banner",
+        "kind": "gradient",
+        "contrast_against": "#09090B",
+        "guarantee": "bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#D4D4D8",
+        "roles": {
+          "accent": "#F97316"
+        }
+      }
+    ],
+    "accent": "#EA580C",
+    "accent_hover": "#C2410C",
+    "on_accent": "#FFFFFF",
+    "secondary_accent": "#F59E0B"
+  },
+  "entry_surfaces": {
+    "/": "landing selector — warm branded dark header with hero identity, large side-by-side mode cards for [NO LOCAL] (table selection) and [DELIVERY] (cardapio delivery), quick access bar",
+    "/local": "table ordering flow — table selector grid (Mesa 1..12 with auto-detected ?mesa=X badge), sticky category ribbon, highlighted carousel, dual-column product catalog, configuration sheet",
+    "/delivery": "delivery ordering flow — address prompt banner, sticky category bar, responsive product catalog, dynamic cart drawer, checkout modal with full address fields"
+  },
+  "image_urls": {
+    "hero_and_featured": [
+      {
+        "url": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwxfHxhcnRpc2FuYWwlMjBwaXp6YSUyMGZvb2R8ZW58MHx8fHwxNzg5Nzc4MjYwfDA&ixlib=rb-4.1.0&q=85",
+        "category": "Pizzas - Artesanal & Portuguesa",
+        "description": "Pizza artesanal saída do forno a lenha com queijo derretido e manjericão fresco"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1571066811602-716837d681de?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHw0fHxhcnRpc2FuYWwlMjBwaXp6YSUyMGZvb2R8ZW58MHx8fHwxNzg5Nzc4MjYwfDA&ixlib=rb-4.1.0&q=85",
+        "category": "Pizzas - Galegonn Especial",
+        "description": "Pizza especial assada com queijo dourado e azeitonas pretas"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1509236715619-171588ce72d5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHw0fHxicmF6aWxpYW4lMjBmb29kJTIwZGlzaGVzfGVufDB8fHx8MTc4OTc3ODI2MHww&ixlib=rb-4.1.0&q=85",
+        "category": "Pratos Principais - Tilápia Crocante & Parmegiana",
+        "description": "Filé de tilápia empanado crocante dourado servido com guarnições brasileiras"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1562967914-70f9865b4c2f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwzfHxicmF6aWxpYW4lMjBmb29kJTIwZGlzaGVzfGVufDB8fHx8MTc4OTc3ODI2MHww&ixlib=rb-4.1.0&q=85",
+        "category": "Porções - Mandioca frita, Carne de Sol e Calabresa",
+        "description": "Chapa de porção tradicional com carnes suculentas e mandioca dourada"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxjb2xkJTIwYmVlciUyMHRyb3BpY2FsJTIwanVpY2V8ZW58MHx8fHwxNzg5Nzc4MjYwfDA&ixlib=rb-4.1.0&q=85",
+        "category": "Bebidas & Sucos Naturais / Cremes",
+        "description": "Suco natural e creme de frutas tropicais servido gelado em copo longo"
+      }
+    ]
+  },
+  "component_hierarchy": {
+    "header": {
+      "path": "frontend/src/components/Header.tsx",
+      "features": [
+        "GalegonN Logo + Slogan ('Restaurante e Pizzaria')",
+        "Order Mode Badge ('Mesa 05' ou 'Delivery')",
+        "Table Switcher Dialog (para trocar de mesa rápido)",
+        "Floating Cart Trigger com badge de contagem pulsante",
+        "Search bar expansível para filtrar itens por nome ou ingrediente"
+      ]
+    },
+    "mode_selector": {
+      "path": "frontend/src/components/ModeSelector.tsx",
+      "features": [
+        "Dois cartões de ação principal em destaque: [COMER NO LOCAL] e [PEDIR DELIVERY]",
+        "Grid de seleção de Mesa 1 a 12 com feedback visual de mesa selecionada",
+        "Suporte a parâmetro de URL QR Code (/local?mesa=5 ou /?mesa=5)"
+      ]
+    },
+    "featured_carousel": {
+      "path": "frontend/src/components/FeaturedCarousel.tsx",
+      "features": [
+        "Carrossel horizontal suave ('MAIS PEDIDOS') com scroll-snap",
+        "Badges de destaque ('Mais Vendido', 'Favorito da Casa')",
+        "Tilápia Crocante (R$ 28,90), Parmegiana de Frango (R$ 27,90), Pizza Portuguesa, Pizza Galegonn Especial",
+        "Botão direto 'Configurar & Pedir' em cada card"
+      ]
+    },
+    "category_nav": {
+      "path": "frontend/src/components/CategoryNav.tsx",
+      "features": [
+        "Barra de categorias 'Sticky' com scroll horizontal suave e auto-scroll no active state",
+        "Categorias obrigatórias: Pratos Principais, Pizzas, Porções 1 Pessoa, Porções 2 Pessoas, Cervejas, Refrigerantes, Sucos e Cremes, Água e Outros",
+        "Contador de itens disponíveis por categoria"
+      ]
+    },
+    "product_card": {
+      "path": "frontend/src/components/ProductCard.tsx",
+      "features": [
+        "Layout limpo e de alta legibilidade: foto apetitosa, título com peso visual, ingredientes/resumo, preço em destaque laranja",
+        "Para Pizzas: badge indicando 'Média ou Grande' com preço 'A partir de R$ XX,XX'",
+        "Para Pratos: badge 'Até 3 acompanhamentos inclusos'",
+        "Feedback ao clicar para abrir a Bottom Sheet / Modal de configuração"
+      ]
+    },
+    "config_modal": {
+      "path": "frontend/src/components/ProductConfigSheet.tsx",
+      "features": [
+        "Mobile-first Bottom Sheet (Sheet em telas < 768px, Dialog central em desktop)",
+        "Para Pratos: Seletor de Acompanhamentos Grátis com contador visual (ex: '2 de 3 selecionados') dentre arroz, feijão, feijão tropeiro, farofa, vinagrete, fritas, purê, salada",
+        "Adicionais Extras pagos (ex: Ovo frito R$ 3,50, Queijo extra R$ 7,00, Porção de Bacon R$ 7,00)",
+        "Para Pizzas: Toggle Média (6 fatias) / Grande (8 fatias) com recálculo instantâneo do valor",
+        "Para Bebidas: Seletor de sabor de polpa (7 sabores: Maracujá, Acerola, Caju, Goiaba, Manga, Abacaxi, Morango), Cremes, ou tamanho de refri (Lata 350ml, 600ml, 1.5L)",
+        "Campo de Observação (ex: 'sem cebola', 'molho à parte')",
+        "Botão Adicionar com valor dinâmico total calculado"
+      ]
+    },
+    "cart_drawer": {
+      "path": "frontend/src/components/CartDrawer.tsx",
+      "features": [
+        "Barra flutuante inferior fixa em mobile com resumo do carrinho (Qtd itens + Total R$)",
+        "Drawer expansível com listagem de itens detalhados (mostrando claramente variações como 'Pizza Portuguesa Grande' vs 'Pizza Portuguesa Média' e seus adicionais)",
+        "Controles de incremento/decremento de quantidade",
+        "Botão de editar observação do item",
+        "Cálculo de Subtotal, Taxa de entrega (se Delivery), e Total Geral",
+        "Persistência em localStorage para não perder itens ao atualizar"
+      ]
+    },
+    "checkout_form": {
+      "path": "frontend/src/components/CheckoutModal.tsx",
+      "features": [
+        "No Local: Resumo rápido do pedido para a Mesa confirmada + Nome do cliente + Observações para a cozinha",
+        "Delivery: Formulário com validação em tempo real: Nome, Telefone / WhatsApp, CEP/Endereço, Número, Complemento, Ponto de Referência, Forma de Pagamento (PIX, Cartão Crédito/Débito, Dinheiro com campo de troco)",
+        "Sem confirmação falsa de envio: feedback claro do pedido registrado com código de acompanhamento (#GAL-XXXX) e botão direto de envio via WhatsApp do restaurante"
+      ]
+    },
+    "footer": {
+      "path": "frontend/src/components/Footer.tsx",
+      "features": [
+        "Horários de Funcionamento (Terça a Domingo: 18h às 23h30)",
+        "Endereço físico e Área de entrega",
+        "Canais de Atendimento (WhatsApp / Telefone)",
+        "Formas de pagamento aceitas (Pix, Visa, Mastercard, Elo, Dinheiro)",
+        "Badges de segurança e qualidade GalegonN"
+      ]
+    }
+  },
+  "motion_and_interactions": {
+    "principles": "Leveza e funcionalidade: transições de 200ms a 300ms, sem saltos abruptos nem efeitos lentos",
+    "drawer_transitions": "Slide vertical suave para Bottom Sheets em mobile (transform: translateY)",
+    "cart_badge_animation": "Bounce leve e pulso de cor laranja ao adicionar produto",
+    "category_scroll": "Smooth snap horizontal no clique de categoria com highlight ativo sublinhado em laranja",
+    "dialog_fade": "Fade in/out com escala sutil (0.98 -> 1.0) para modais no desktop"
+  },
+  "accessibility": {
+    "wcag_level": "AA",
+    "contrast_ratio": "Mínimo 4.5:1 para todo texto informativo, 3:1 para controles grandes",
+    "touch_targets": "Mínimo 48px de altura/largura para botões de ação e seletores de quantidade",
+    "focus_states": "Anel de foco visível 'ring-2 ring-orange-500 ring-offset-2 ring-offset-zinc-950'",
+    "aria_labels": "Todos os ícones e botões sem texto possuem aria-label explicativo (ex: 'Aumentar quantidade', 'Fechar carrinho')"
+  },
+  "instructions_to_main_agent": {
+    "tech_stack": "React 19 + TypeScript + Tailwind v4 + FastAPI + MongoDB (via Motor)",
+    "mobile_priority": "Interface ultra-otimizada para smartphones (uso por QR Code na mesa e pedidos de delivery na palma da mão)",
+    "desktop_adaptation": "No desktop, aproveitar largura com grid de 2 a 3 colunas de produtos, mantendo a barra de categorias acessível e carrinho lateral",
+    "brazilian_currency_format": "Sempre formatar valores em R$ XX,XX (ex: R$ 28,90 com vírgula para decimais)",
+    "required_test_ids": [
+      "mode-local-button",
+      "mode-delivery-button",
+      "table-select-grid",
+      "table-option-btn-1",
+      "table-option-btn-5",
+      "category-nav-bar",
+      "category-btn-pizzas",
+      "category-btn-pratos",
+      "featured-carousel",
+      "product-card-tilapia",
+      "product-card-parmegiana",
+      "product-card-pizza-portuguesa",
+      "product-config-sheet",
+      "accompaniment-counter",
+      "accompaniment-option",
+      "extra-addon-option",
+      "pizza-size-toggle-media",
+      "pizza-size-toggle-grande",
+      "add-to-cart-submit-btn",
+      "floating-cart-bar",
+      "cart-drawer-content",
+      "cart-item-row",
+      "cart-qty-plus",
+      "cart-qty-minus",
+      "checkout-open-btn",
+      "delivery-form-name",
+      "delivery-form-phone",
+      "delivery-form-address",
+      "delivery-form-number",
+      "payment-method-selector",
+      "confirm-order-btn",
+      "order-confirmation-summary"
+    ]
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": {
+    "rules": [
+      "Evitar visual genérico ou cinza sem vida: usar tons quentes de cinza escuro (#18181B, #121214) com acentos em Laranja Fogo (#EA580C / #F97316) para apetite e energia.",
+      "Nunca usar gradientes pesados cobrindo o site todo; focar em cards limpos com bordas finas (1px zinc-800) e fotos nítidas dos pratos.",
+      "O carrinho deve diferenciar variantes do mesmo sabor (ex: Pizza Portuguesa Média != Pizza Portuguesa Grande).",
+      "Formulário de Delivery deve ser claro e validar campos essenciais antes da finalização.",
+      "Todos os elementos interativos DEVEM conter data-testid para testes automatizados."
+    ]
+  }
+}
