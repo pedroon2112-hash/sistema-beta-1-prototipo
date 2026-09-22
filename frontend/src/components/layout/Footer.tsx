@@ -1,9 +1,9 @@
-import { Clock, Instagram, MapPin, Phone } from "lucide-react";
-import { restaurantInfo } from "@/data/menu";
+import { Clock, Instagram, Lock, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useCatalog, FALLBACK_RESTAURANT } from "@/data/catalog";
 
-// Rodapé GLOBAL — todas as páginas reutilizam este componente.
-// Informações oficiais ainda não fornecidas aparecem como placeholders
-// claramente identificados ("A informar") — nada inventado.
+// Rodapé GLOBAL — informações vêm do SQLite (editáveis no Admin).
+// Campo ainda não preenchido aparece como placeholder claro: nada inventado.
 
 function InfoRow({
   icon,
@@ -24,11 +24,9 @@ function InfoRow({
       <div className="min-w-0 text-sm">
         <p className="font-medium text-zinc-300">{label}</p>
         {value ? (
-          <p className="text-zinc-400">{value}</p>
+          <p className="break-words text-zinc-400">{value}</p>
         ) : (
-          <p className="italic text-zinc-500">
-            A informar — dado oficial ainda não fornecido
-          </p>
+          <p className="italic text-zinc-500">A informar</p>
         )}
       </div>
     </div>
@@ -36,6 +34,9 @@ function InfoRow({
 }
 
 export default function Footer() {
+  const { data } = useCatalog();
+  const info = data?.restaurant ?? FALLBACK_RESTAURANT;
+
   return (
     <footer
       data-testid="footer"
@@ -44,21 +45,19 @@ export default function Footer() {
       <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-3">
           <img
-            src={restaurantInfo.logo}
-            alt={`Logo ${restaurantInfo.name}`}
-            className="h-16 w-16 rounded-lg"
+            src={info.logo}
+            alt={`Logo ${info.name}`}
+            className="h-16 w-16 rounded-lg object-contain"
           />
           <div>
-            <p className="font-heading text-lg font-bold text-zinc-50">
-              GalegonN
-            </p>
+            <p className="font-heading text-lg font-bold text-zinc-50">GalegonN</p>
             <p className="text-sm uppercase tracking-widest text-orange-500">
-              Restaurante e Pizzaria
+              {info.tagline}
             </p>
           </div>
           <p className="max-w-xs text-sm text-zinc-500">
-            Faça seu pedido no local pelo nosso cardápio digital ou receba em
-            casa no modo delivery.
+            Faça seu pedido no local pelo nosso cardápio digital ou receba em casa no
+            modo delivery.
           </p>
         </div>
 
@@ -66,37 +65,45 @@ export default function Footer() {
           <InfoRow
             icon={<Instagram className="size-4" />}
             label="Instagram"
-            value={restaurantInfo.instagram}
+            value={info.instagram}
             testId="footer-instagram"
           />
           <InfoRow
             icon={<Phone className="size-4" />}
             label="Telefone / WhatsApp"
-            value={restaurantInfo.whatsapp ?? restaurantInfo.phone}
+            value={info.whatsapp ?? info.phone}
             testId="footer-phone"
           />
           <InfoRow
             icon={<MapPin className="size-4" />}
             label="Endereço"
-            value={restaurantInfo.address}
+            value={info.address}
             testId="footer-address"
           />
           <InfoRow
             icon={<Clock className="size-4" />}
             label="Horário de funcionamento"
-            value={restaurantInfo.openingHours}
+            value={info.openingHours}
             testId="footer-hours"
           />
         </div>
 
-        <div className="flex flex-col gap-3 sm:items-end lg:items-end">
+        <div className="flex flex-col gap-3 sm:items-end">
           <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-400 sm:max-w-xs">
             <p className="font-medium text-zinc-200">Pedidos digitais</p>
             <p className="mt-1">
-              Em breve: envio online do pedido e comanda automática. Por
-              enquanto, este cardápio é a vitrine e o organizador do seu pedido.
+              Peça direto pelo cardápio: o pedido é registrado e a comanda é gerada
+              na hora.
             </p>
           </div>
+          <Link
+            to="/admin"
+            data-testid="footer-admin-link"
+            className="inline-flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-500"
+          >
+            <Lock className="size-3" aria-hidden />
+            Admin
+          </Link>
         </div>
       </div>
 

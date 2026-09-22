@@ -3,8 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, MapPin } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 import { useOrder } from "@/context/OrderContext";
-
-const TOTAL_TABLES = 12;
+import { useCatalog } from "@/data/catalog";
 
 // Seleção de mesa do modo No Local. A mesa é apenas identificação — nunca
 // existe estado livre/ocupada para o cliente. Aceita ?mesa=N (QR Code).
@@ -12,13 +11,17 @@ export default function TableSelect() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { setLocalMode } = useOrder();
+  const { data: catalog } = useCatalog();
+  const tables = catalog?.tables ?? [];
 
-  const mesaParam = Number(searchParams.get("mesa"));
-  const fromQr =
-    Number.isInteger(mesaParam) && mesaParam >= 1 && mesaParam <= TOTAL_TABLES;
-  const [table, setTable] = useState<number | null>(
-    fromQr ? mesaParam : null,
+  const mesaParam = (searchParams.get("mesa") ?? "").trim();
+  // A mesa do QR Code só é aceita se existir no cadastro do banco.
+  const qrTable = tables.find(
+    (t) => t.label === `Mesa ${mesaParam}` || t.label === mesaParam,
   );
+  const [table, setTable] = useState<string | null>(null);
+  const selectedLabel = table ?? qrTable?.label ?? null;
+  const fromQr = Boolean(qrTable) && table === null;
 
   return (
     <div className="flex min-h-svh flex-col bg-zinc-950 text-zinc-100">
@@ -54,7 +57,7 @@ export default function TableSelect() {
             data-testid="table-qr-hint"
             className="mt-3 rounded-lg border border-orange-600/50 bg-orange-950/30 px-3 py-2 text-sm text-orange-300"
           >
-            Identificamos sua mesa pelo link — Mesa {mesaParam} já selecionada.
+            Identificamos sua mesa pelo link — {qrTable?.label} já selecionada.
           </p>
         )}
 
@@ -62,15 +65,16 @@ export default function TableSelect() {
           data-testid="table-select-grid"
           className="mt-5 grid grid-cols-3 gap-3 sm:grid-cols-4"
         >
-          {Array.from({ length: TOTAL_TABLES }, (_, i) => i + 1).map((n) => {
-            const selected = table === n;
+          {tables.map((t) => {
+            const selected = selectedLabel === t.label;
+            const shortLabel = t.label.replace(/^Mesa\s*/i, "");
             return (
               <button
-                key={n}
+                key={t.id}
                 type="button"
-                data-testid={`table-option-btn-${n}`}
+                data-testid={`table-option-btn-${shortLabel}`}
                 aria-pressed={selected}
-                onClick={() => setTable(n)}
+                onClick={() => setTable(t.label)}
                 className={`flex h-20 flex-col items-center justify-center rounded-xl border transition-colors duration-200 ${
                   selected
                     ? "border-orange-600 bg-orange-600 text-white shadow-lg shadow-orange-950/40"
@@ -78,7 +82,7 @@ export default function TableSelect() {
                 }`}
               >
                 <span className="font-heading text-lg font-bold">Mesa</span>
-                <span className="font-heading text-2xl font-black">{n}</span>
+                <span className="font-heading text-2xl font-black">{shortLabel}</span>
               </button>
             );
           })}
@@ -88,18 +92,18 @@ export default function TableSelect() {
           <button
             type="button"
             data-testid="table-confirm-btn"
-            disabled={table === null}
+            disabled={selectedLabel === null}
             onClick={() => {
-              if (table !== null) {
-                setLocalMode(table);
+              if (selectedLabel !== null) {
+                setLocalMode(selectedLabel);
                 navigate("/cardapio");
               }
             }}
             className="h-14 w-full rounded-xl bg-orange-600 font-heading text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {table === null
+            {selectedLabel === null
               ? "Escolha uma mesa para continuar"
-              : `Entrar no cardápio — Mesa ${table}`}
+              : `Entrar no cardápio — ${selectedLabel}`}
           </button>
         </div>
       </main>

@@ -1,18 +1,15 @@
 import { Flame, Plus } from "lucide-react";
 import type { Product } from "@/data/types";
-import { minPrice } from "@/data/menu";
-import { formatBRL } from "@/lib/format";
+import { minPriceCents } from "@/data/catalog";
+import { formatCents } from "@/lib/format";
 
 interface FeaturedCarouselProps {
   products: Product[];
   onOpen: (product: Product) => void;
 }
 
-// Carrossel horizontal com scroll-snap — referencia produtos existentes por id.
-export default function FeaturedCarousel({
-  products,
-  onOpen,
-}: FeaturedCarouselProps) {
+// Carrossel horizontal — referencia produtos reais por id (nunca duplica dados).
+export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselProps) {
   return (
     <section aria-labelledby="featured-title" data-testid="featured-carousel">
       <div className="flex items-center gap-2">
@@ -50,17 +47,15 @@ export default function FeaturedCarousel({
                 {product.name}
               </h3>
               {product.description && (
-                <p className="line-clamp-1 text-xs text-zinc-400">
-                  {product.description}
-                </p>
+                <p className="line-clamp-1 text-xs text-zinc-400">{product.description}</p>
               )}
               <div className="mt-2 flex items-center justify-between">
                 <div>
-                  {product.variants?.length ? (
+                  {product.variants.length > 0 && (
                     <p className="text-[11px] text-zinc-500">a partir de</p>
-                  ) : null}
+                  )}
                   <span className="font-heading text-base font-bold text-orange-500">
-                    {formatBRL(minPrice(product))}
+                    {formatCents(minPriceCents(product))}
                   </span>
                 </div>
                 <span

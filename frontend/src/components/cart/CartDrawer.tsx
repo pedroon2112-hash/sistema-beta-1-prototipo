@@ -7,10 +7,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { useOrder } from "@/context/OrderContext";
 import type { CartApi } from "@/lib/cart";
-import { lineTotalOf } from "@/lib/cart";
-import { formatBRL } from "@/lib/format";
+import { lineTotalCentsOf } from "@/lib/cart";
+import { formatCents } from "@/lib/format";
 import { useIsMobile } from "@/lib/useIsMobile";
 
 interface CartDrawerProps {
@@ -18,28 +17,27 @@ interface CartDrawerProps {
   onOpenChange: (open: boolean) => void;
   cart: CartApi;
   onCheckout: () => void;
+  /** Mensagem de erro do backend (item indisponível, preço alterado...). */
+  alert?: string | null;
 }
 
-// Carrinho completo: distingue configurações (variante, sabor, acompanhamentos
-// inclusos, extras pagos), permite quantidade e remove. Nada é enviado daqui —
-// a finalização real chega no Prompt 2.
+// Carrinho: distingue configurações, controla quantidade e abre a finalização.
+// Nenhum preço daqui é confiado — o backend recalcula tudo ao finalizar.
 export default function CartDrawer({
   open,
   onOpenChange,
   cart,
   onCheckout,
+  alert,
 }: CartDrawerProps) {
   const isMobile = useIsMobile();
-  const { mode } = useOrder();
-  const { items, subtotal, count, increment, decrement, remove } = cart;
+  const { items, subtotalCents, count, increment, decrement, remove } = cart;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         data-testid="cart-drawer-content"
         side={isMobile ? "bottom" : "right"}
-        // Altura via style: data-[side=bottom]:h-auto do SheetContent venceria
-        // uma classe utilitária de altura.
         style={isMobile ? { height: "92svh" } : undefined}
         className={
           isMobile
@@ -52,9 +50,7 @@ export default function CartDrawer({
             Seu carrinho
           </SheetTitle>
           <SheetDescription className="text-sm text-zinc-400">
-            {count === 0
-              ? "Nenhum item ainda"
-              : `${count} ${count === 1 ? "item" : "itens"}`}
+            {count === 0 ? "Nenhum item ainda" : `${count} ${count === 1 ? "item" : "itens"}`}
           </SheetDescription>
         </SheetHeader>
 
@@ -76,10 +72,16 @@ export default function CartDrawer({
         ) : (
           <>
             <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3">
+              {alert && (
+                <div
+                  data-testid="cart-alert"
+                  className="rounded-lg border border-amber-600/60 bg-amber-950/40 p-3 text-sm text-amber-200"
+                >
+                  {alert}
+                </div>
+              )}
               {items.map((item, index) => {
-                const flavor = item.selectedOptions.find(
-                  (o) => o.groupId === "sabor",
-                );
+                const flavor = item.selectedOptions.find((o) => o.groupId === "sabor");
                 const included = item.selectedOptions.filter(
                   (o) => o.noExtraCost && o.groupId !== "sabor",
                 );
@@ -114,28 +116,20 @@ export default function CartDrawer({
                         </div>
 
                         {item.variantLabel && (
-                          <p className="text-xs text-zinc-400">
-                            Tamanho: {item.variantLabel}
-                          </p>
+                          <p className="text-xs text-zinc-400">Tamanho: {item.variantLabel}</p>
                         )}
                         {flavor && (
-                          <p className="text-xs text-zinc-400">
-                            Sabor: {flavor.optionLabel}
-                          </p>
+                          <p className="text-xs text-zinc-400">Sabor: {flavor.optionLabel}</p>
                         )}
                         {included.length > 0 && (
                           <p className="text-xs text-zinc-400">
-                            Inclusos:{" "}
-                            {included.map((o) => o.optionLabel).join(", ")}
+                            Inclusos: {included.map((o) => o.optionLabel).join(", ")}
                           </p>
                         )}
                         {extras.map((o) => (
-                          <p
-                            key={o.optionId}
-                            className="text-xs text-zinc-400"
-                          >
+                          <p key={o.optionId} className="text-xs text-zinc-400">
                             + {o.quantity}x {o.optionLabel} (
-                            {formatBRL(o.unitPrice * o.quantity)})
+                            {formatCents(o.unitPriceCents * o.quantity)})
                           </p>
                         ))}
                         {item.note && (
@@ -175,7 +169,7 @@ export default function CartDrawer({
                             data-testid={`cart-item-total-${index}`}
                             className="font-heading text-base font-bold text-orange-500"
                           >
-                            {formatBRL(lineTotalOf(item))}
+                            {formatCents(lineTotalCentsOf(item))}
                           </span>
                         </div>
                       </div>
@@ -188,33 +182,24 @@ export default function CartDrawer({
             <div className="shrink-0 border-t border-zinc-800 bg-zinc-950 p-4">
               <div className="flex items-center justify-between text-sm text-zinc-400">
                 <span>Subtotal</span>
-                <span data-testid="cart-subtotal">{formatBRL(subtotal)}</span>
+                <span data-testid="cart-subtotal">{formatCents(subtotalCents)}</span>
               </div>
               <div className="mt-1 flex items-center justify-between font-heading text-lg font-bold text-zinc-50">
                 <span>Total</span>
-                <span data-testid="cart-total">{formatBRL(subtotal)}</span>
+                <span data-testid="cart-total">{formatCents(subtotalCents)}</span>
               </div>
+              <p className="mt-1 flex items-start gap-1.5 text-[11px] text-zinc-500">
+                <Info className="mt-0.5 size-3 shrink-0" aria-hidden />
+                O valor final é confirmado pelo restaurante ao registrar o pedido.
+              </p>
 
-              {mode === "delivery" ? (
-                <Button
-                  data-testid="checkout-open-btn"
-                  onClick={onCheckout}
-                  className="mt-3 h-12 w-full bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500"
-                >
-                  Finalizar pedido
-                </Button>
-              ) : (
-                <div
-                  data-testid="local-checkout-notice"
-                  className="mt-3 flex items-start gap-2 rounded-lg border border-zinc-800 bg-zinc-900 p-3 text-xs text-zinc-400"
-                >
-                  <Info className="mt-0.5 size-4 shrink-0 text-orange-500" aria-hidden />
-                  <p>
-                    O envio digital do pedido no local será ativado em breve.
-                    Por enquanto, nada é enviado ao restaurante.
-                  </p>
-                </div>
-              )}
+              <Button
+                data-testid="checkout-open-btn"
+                onClick={onCheckout}
+                className="mt-3 h-12 w-full bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500"
+              >
+                Finalizar pedido
+              </Button>
             </div>
           </>
         )}

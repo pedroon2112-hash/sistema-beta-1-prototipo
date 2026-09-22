@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { restaurantInfo } from "@/data/menu";
+import { useCatalog, FALLBACK_RESTAURANT } from "@/data/catalog";
 import { useOrder } from "@/context/OrderContext";
 
 interface HeaderProps {
@@ -16,7 +16,9 @@ interface HeaderProps {
 }
 
 export default function Header({ cartCount, onOpenCart }: HeaderProps) {
-  const { mode, tableNumber, setDeliveryMode } = useOrder();
+  const { mode, tableLabel, setDeliveryMode } = useOrder();
+  const { data: catalog } = useCatalog();
+  const info = catalog?.restaurant ?? FALLBACK_RESTAURANT;
   const navigate = useNavigate();
   const [modePopoverOpen, setModePopoverOpen] = useState(false);
 
@@ -33,9 +35,9 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
           aria-label="Voltar ao início"
         >
           <img
-            src={restaurantInfo.logo}
-            alt={`Logo ${restaurantInfo.name}`}
-            className="h-10 w-10 shrink-0 rounded-md"
+            src={info.logo}
+            alt={`Logo ${info.name}`}
+            className="h-10 w-10 shrink-0 rounded-md object-contain"
           />
           <span className="truncate font-heading text-lg font-bold tracking-tight text-zinc-50">
             GalegonN
@@ -65,7 +67,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                 )}
                 <span className="max-w-28 truncate">
                   {mode === "local"
-                    ? `Mesa ${String(tableNumber ?? "").padStart(2, "0")}`
+                    ? (tableLabel ?? "Mesa")
                     : "Delivery"}
                 </span>
               </PopoverTrigger>

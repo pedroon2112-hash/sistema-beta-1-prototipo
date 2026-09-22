@@ -1,18 +1,17 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
-// Modo do pedido ("local" com mesa ou "delivery"). Estado do frontend no
-// Prompt 1 — o backend assumirá no Prompt 2. Persiste em sessionStorage para
-// sobreviver a recarregamentos na mesma aba.
+// Modo do pedido ("local" com mesa ou "delivery"). A mesa é SOMENTE a
+// identificação de onde o cliente está — não existe abrir/fechar mesa.
 
 export type OrderMode = "local" | "delivery";
 
 interface OrderState {
-  mode: OrderMode;
-  tableNumber: number | null;
+  mode: OrderMode | null;
+  tableLabel: string | null;
 }
 
-const STORAGE_KEY = "galegonn.order.v1";
+const STORAGE_KEY = "galegonn.order.v2";
 
 function loadState(): OrderState {
   try {
@@ -24,13 +23,13 @@ function loadState(): OrderState {
   } catch {
     // ignore
   }
-  return { mode: null as unknown as OrderMode, tableNumber: null };
+  return { mode: null, tableLabel: null };
 }
 
 interface OrderContextValue {
   mode: OrderMode | null;
-  tableNumber: number | null;
-  setLocalMode: (table: number | null) => void;
+  tableLabel: string | null;
+  setLocalMode: (tableLabel: string | null) => void;
   setDeliveryMode: () => void;
   reset: () => void;
 }
@@ -50,23 +49,19 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setLocalMode = useCallback(
-    (table: number | null) => persist({ mode: "local", tableNumber: table }),
+    (tableLabel: string | null) => persist({ mode: "local", tableLabel }),
     [persist],
   );
   const setDeliveryMode = useCallback(
-    () => persist({ mode: "delivery", tableNumber: null }),
+    () => persist({ mode: "delivery", tableLabel: null }),
     [persist],
   );
-  const reset = useCallback(
-    () =>
-      persist({ mode: null as unknown as OrderMode, tableNumber: null }),
-    [persist],
-  );
+  const reset = useCallback(() => persist({ mode: null, tableLabel: null }), [persist]);
 
   const value = useMemo<OrderContextValue>(
     () => ({
-      mode: state.mode ?? null,
-      tableNumber: state.tableNumber,
+      mode: state.mode,
+      tableLabel: state.tableLabel,
       setLocalMode,
       setDeliveryMode,
       reset,

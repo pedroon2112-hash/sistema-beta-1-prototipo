@@ -1,23 +1,24 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { CartItem } from "@/data/types";
+import type { CartItem, OrderCreatePayload } from "@/data/types";
 
-// Carrinho do frontend, persistido em localStorage. O item é um snapshot
-// (nome, imagem, preço base, opções) pronto para virar pedido no Prompt 2.
+// Carrinho do frontend em CENTAVOS, persistido em localStorage.
+// O backend é a autoridade final de preço: daqui só saem ids/quantidades.
 
-const STORAGE_KEY = "galegonn.cart.v1";
+const STORAGE_KEY = "galegonn.cart.v2";
 
 function loadCart(): CartItem[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw) as CartItem[];
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    // descarta itens do formato antigo (Prompt 1 usava reais)
+    return parsed.filter((it) => typeof it?.baseUnitPriceCents === "number");
   } catch {
     return [];
   }
 }
 
-/** Identidade de configuração: mesma configuração = mesmo item (soma quantidade). */
 function identityKey(item: {
   productId: string;
   variantId?: string;
@@ -25,25 +26,36 @@ function identityKey(item: {
   note?: string;
 }): string {
   const opts = [...item.selectedOptions]
-    .map((o) =>
-      o.noExtraCost
-        ? `${o.optionId}:i`
-        : `${o.optionId}:x${o.quantity}`,
-    )
+    .map((o) => (o.noExtraCost ? `${o.optionId}:i` : `${o.optionId}:x${o.quantity}`))
     .sort()
     .join("|");
   return [item.productId, item.variantId ?? "", opts, item.note ?? ""].join("##");
 }
 
-export function unitPriceOf(item: CartItem): number {
+export function unitPriceCentsOf(item: CartItem): number {
   const extras = item.selectedOptions
     .filter((o) => !o.noExtraCost)
-    .reduce((sum, o) => sum + o.unitPrice * o.quantity, 0);
-  return item.baseUnitPrice + extras;
+    .reduce((sum, o) => sum + o.unitPriceCents * o.quantity, 0);
+  return item.baseUnitPriceCents + extras;
 }
 
-export function lineTotalOf(item: CartItem): number {
-  return unitPriceOf(item) * item.quantity;
+export function lineTotalCentsOf(item: CartItem): number {
+  return unitPriceCentsOf(item) * item.quantity;
+}
+
+/** Converte o carrinho no payload do pedido (sem preços — backend recalcula). */
+export function cartToOrderItems(items: CartItem[]): OrderCreatePayload["items"] {
+  return items.map((it) => ({
+    productId: it.productId,
+    variantId: it.variantId ?? null,
+    options: it.selectedOptions.map((o) => ({
+      groupId: o.groupId,
+      optionId: o.optionId,
+      quantity: o.quantity,
+    })),
+    quantity: it.quantity,
+    note: it.note ?? null,
+  }));
 }
 
 export function useCart() {
@@ -103,16 +115,22 @@ export function useCart() {
 
   const clear = useCallback(() => setItems([]), []);
 
-  const count = useMemo(
-    () => items.reduce((sum, it) => sum + it.quantity, 0),
-    [items],
-  );
-  const subtotal = useMemo(
-    () => items.reduce((sum, it) => sum + lineTotalOf(it), 0),
+  const count = useMemo(() => items.reduce((s, it) => s + it.quantity, 0), [items]);
+  const subtotalCents = useMemo(
+    () => items.reduce((s, it) => s + lineTotalCentsOf(it), 0),
     [items],
   );
 
-  return { items, addItem, increment, decrement, remove, clear, count, subtotal };
+  return {
+    items,
+    addItem,
+    increment,
+    decrement,
+    remove,
+    clear,
+    count,
+    subtotalCents,
+  };
 }
 
 export type CartApi = ReturnType<typeof useCart>;

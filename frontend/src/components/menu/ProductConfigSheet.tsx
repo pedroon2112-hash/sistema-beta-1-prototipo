@@ -17,7 +17,7 @@ import type {
   Product,
   SelectedOption,
 } from "@/data/types";
-import { formatBRL } from "@/lib/format";
+import { formatCents } from "@/lib/format";
 import { useIsMobile } from "@/lib/useIsMobile";
 
 interface ProductConfigSheetProps {
@@ -29,9 +29,9 @@ interface ProductConfigSheetProps {
 
 type SelectionMap = Record<string, Record<string, number>>;
 
-function initSelections(groups: OptionGroupDef[] | undefined): SelectionMap {
+function initSelections(groups: OptionGroupDef[]): SelectionMap {
   const map: SelectionMap = {};
-  for (const g of groups ?? []) {
+  for (const g of groups) {
     map[g.id] = Object.fromEntries(g.options.map((o) => [o.id, 0]));
   }
   return map;
@@ -91,7 +91,7 @@ interface ConfigFormProps {
 
 function ConfigForm({ product, onAdd }: ConfigFormProps) {
   const [variantId, setVariantId] = useState<string | undefined>(
-    product.variants?.[0]?.id,
+    product.variants[0]?.id,
   );
   const [selections, setSelections] = useState<SelectionMap>(() =>
     initSelections(product.optionGroups),
@@ -99,23 +99,23 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
   const [note, setNote] = useState("");
   const [qty, setQty] = useState(1);
 
-  const variant = product.variants?.find((v) => v.id === variantId);
-  const base = variant ? variant.price : (product.basePrice ?? 0);
+  const variant = product.variants.find((v) => v.id === variantId);
+  const base = variant ? variant.priceCents : (product.basePriceCents ?? 0);
 
   const selectedCount = (g: OptionGroupDef) =>
     Object.values(selections[g.id] ?? {}).filter((v) => v > 0).length;
 
-  const missingRequired = (product.optionGroups ?? []).filter(
+  const missingRequired = product.optionGroups.filter(
     (g) => g.required && selectedCount(g) < g.minSelect,
   );
 
-  const extrasTotal = (product.optionGroups ?? []).reduce(
+  const extrasTotal = product.optionGroups.reduce(
     (sum, g) =>
       g.noExtraCost
         ? sum
         : sum +
           g.options.reduce(
-            (s, o) => s + (selections[g.id]?.[o.id] ?? 0) * o.price,
+            (s, o) => s + (selections[g.id]?.[o.id] ?? 0) * o.priceCents,
             0,
           ),
     0,
@@ -159,7 +159,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
             groupLabel: g.label,
             optionId: o.id,
             optionLabel: o.label,
-            unitPrice: g.noExtraCost ? 0 : o.price,
+            unitPriceCents: g.noExtraCost ? 0 : o.priceCents,
             noExtraCost: g.noExtraCost,
             quantity: g.allowQuantity ? value : 1,
           });
@@ -172,7 +172,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
       image: product.image,
       variantId: variant?.id,
       variantLabel: variant?.label,
-      baseUnitPrice: base,
+      baseUnitPriceCents: base,
       selectedOptions,
       note: note.trim() ? note.trim() : undefined,
       quantity: qty,
@@ -200,7 +200,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
       </div>
 
       <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-4 pt-2 pb-4">
-        {product.variants?.length ? (
+        {product.variants.length > 0 ? (
           <section>
             <p className="text-sm font-semibold text-zinc-200">Tamanho</p>
             <div className="mt-2 grid grid-cols-2 gap-2">
@@ -225,7 +225,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                   >
                     <span className="text-sm font-medium">{v.label}</span>
                     <span className="font-heading text-sm font-bold">
-                      {formatBRL(v.price)}
+                      {formatCents(v.priceCents)}
                     </span>
                   </button>
                 );
@@ -234,7 +234,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
           </section>
         ) : null}
 
-        {(product.optionGroups ?? []).map((g) => {
+        {product.optionGroups.map((g) => {
           const count = selectedCount(g);
           const atLimit = count >= g.maxSelect;
           return (
@@ -281,7 +281,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                             {o.label}
                           </p>
                           <p className="text-xs text-orange-400">
-                            + {formatBRL(o.price)}
+                            + {formatCents(o.priceCents)}
                           </p>
                         </div>
                         <div className="flex items-center gap-1.5">
@@ -443,7 +443,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
             >
               {missingRequired.length > 0
                 ? `Escolha: ${missingRequired[0].hint ?? missingRequired[0].label}`
-                : `Adicionar • ${formatBRL(lineTotal)}`}
+                : `Adicionar • ${formatCents(lineTotal)}`}
             </Button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import type { Product } from "@/data/types";
-import { minPrice } from "@/data/menu";
-import { formatBRL } from "@/lib/format";
+import { minPriceCents } from "@/data/catalog";
+import { formatCents } from "@/lib/format";
 
 interface ProductCardProps {
   product: Product;
@@ -8,15 +8,17 @@ interface ProductCardProps {
 }
 
 function productBadge(product: Product): string | null {
-  if (product.variants?.length) return "Média ou Grande";
-  if (product.optionGroups?.some((g) => g.id === "acompanhamentos"))
-    return "Até 3 acompanhamentos inclusos";
+  if (product.variants.length > 0) {
+    return product.variants.map((v) => v.label).join(" ou ");
+  }
+  const included = product.optionGroups.find((g) => g.noExtraCost && g.maxSelect > 1);
+  if (included) return `Até ${included.maxSelect} acompanhamentos inclusos`;
   return null;
 }
 
 export default function ProductCard({ product, onOpen }: ProductCardProps) {
   const badge = productBadge(product);
-  const hasVariants = Boolean(product.variants?.length);
+  const hasVariants = product.variants.length > 0;
 
   return (
     <button
@@ -32,11 +34,9 @@ export default function ProductCard({ product, onOpen }: ProductCardProps) {
         className="size-24 shrink-0 rounded-lg object-cover sm:size-28"
       />
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">
-        <div className="flex items-start justify-between gap-2">
-          <h4 className="font-heading text-base leading-tight font-semibold text-zinc-50">
-            {product.name}
-          </h4>
-        </div>
+        <h4 className="font-heading text-base leading-tight font-semibold text-zinc-50">
+          {product.name}
+        </h4>
         {product.description && (
           <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
             {product.description}
@@ -44,11 +44,12 @@ export default function ProductCard({ product, onOpen }: ProductCardProps) {
         )}
         <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-1">
           <div>
-            {hasVariants && (
-              <p className="text-[11px] text-zinc-500">a partir de</p>
-            )}
-            <p className="font-heading text-lg font-bold text-orange-500">
-              {formatBRL(minPrice(product))}
+            {hasVariants && <p className="text-[11px] text-zinc-500">a partir de</p>}
+            <p
+              data-testid={`product-price-${product.id}`}
+              className="font-heading text-lg font-bold text-orange-500"
+            >
+              {formatCents(minPriceCents(product))}
             </p>
           </div>
           {badge && (
