@@ -37,6 +37,9 @@ if (!hotReloadDisabled) {
 export default defineConfig(async () => {
   const emergentOverlay = await loadEmergentOverlay();
   return {
+    // GitHub Pages serves this repository under /sistema-beta-1-prototipo/.
+    // In dev, keep root-based URLs so the Emergent/Vite environment is unchanged.
+    base: process.env.NODE_ENV === "production" ? "/sistema-beta-1-prototipo/" : "/",
     plugins: [
       react(),
       tailwindcss(),
