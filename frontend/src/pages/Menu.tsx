@@ -342,7 +342,7 @@ function OrderPlaced({
           <Button
             data-testid="download-comanda-btn"
             onClick={() => downloadComanda(order.comandaUrl, order.comandaFilename)}
-            className="h-12 bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500"
+            className="h-12 bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-[#a44416]"
           >
             <Download className="mr-2 size-4" aria-hidden />
             Baixar comanda
