@@ -41,15 +41,15 @@ export default function CartDrawer({
         style={isMobile ? { height: "92svh" } : undefined}
         className={
           isMobile
-            ? "flex flex-col gap-0 rounded-t-2xl"
-            : "flex w-full flex-col gap-0 sm:max-w-md"
+            ? "flex flex-col gap-0 rounded-t-2xl !border-[#e9d7c2] !bg-[#fffaf3] !text-[#33251e]"
+            : "flex w-full flex-col gap-0 !border-[#e9d7c2] !bg-[#fffaf3] !text-[#33251e] sm:max-w-md"
         }
       >
         <SheetHeader className="border-b border-[#e9d7c2] px-4 py-3">
-          <SheetTitle className="font-heading text-lg font-bold text-[#33251e]">
+          <SheetTitle className="font-heading text-lg font-bold !text-[#33251e]">
             Seu carrinho
           </SheetTitle>
-          <SheetDescription className="text-sm text-[#72594a]">
+          <SheetDescription className="text-sm !text-[#72594a]">
             {count === 0 ? "Nenhum item ainda" : `${count} ${count === 1 ? "item" : "itens"}`}
           </SheetDescription>
         </SheetHeader>
@@ -57,13 +57,14 @@ export default function CartDrawer({
         {items.length === 0 ? (
           <div
             data-testid="cart-empty-state"
-            className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center"
+            className="flex flex-1 flex-col items-center justify-center gap-3 bg-[#fffaf3] p-6 text-center"
           >
-            <ShoppingBag className="size-10 text-zinc-600" aria-hidden />
-            <p className="text-[#72594a]">Seu carrinho está vazio</p>
+            <ShoppingBag className="size-10 text-[#b94f19]" aria-hidden />
+            <p className="text-[#604737]">Seu carrinho está vazio</p>
             <Button
               data-testid="cart-view-menu-btn"
               variant="outline"
+              className="!border-[#d6bda4] !bg-white !text-[#33251e] hover:!bg-[#f1e1cf]"
               onClick={() => onOpenChange(false)}
             >
               Ver cardápio
