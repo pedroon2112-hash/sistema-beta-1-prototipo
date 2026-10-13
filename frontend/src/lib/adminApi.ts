@@ -1,7 +1,7 @@
 // Cliente das rotas administrativas. A sessão é um cookie httpOnly definido
 // pelo backend: nenhum token é manipulado aqui.
 
-import { apiDelete, apiGet, apiPatch, apiPost, apiPut } from "@/lib/api";
+import { API_BASE, apiDelete, apiGet, apiPatch, apiPost, apiPut } from "@/lib/api";
 import type { Catalog, Order } from "@/data/types";
 
 export interface AdminMe {
@@ -115,7 +115,7 @@ export const adminApi = {
   uploadImage: async (file: File): Promise<{ url: string }> => {
     const form = new FormData();
     form.append("file", file);
-    const res = await fetch("/api/admin/uploads", { method: "POST", body: form });
+    const res = await fetch(`${API_BASE}/admin/uploads`, { method: "POST", body: form, credentials: "include" });
     if (!res.ok) {
       const body = (await res.json().catch(() => null)) as { detail?: string } | null;
       throw new Error(body?.detail ?? "Falha no upload da imagem.");
