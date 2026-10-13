@@ -89,15 +89,15 @@ export default function CheckoutDialog({
     <Dialog open={open} onOpenChange={(v) => !submitting && onOpenChange(v)}>
       <DialogContent
         data-testid="checkout-dialog"
-        className="max-h-[92svh] overflow-y-auto border-zinc-800 bg-zinc-950 sm:max-w-lg"
+        className="max-h-[92svh] overflow-y-auto border-[#e9d7c2] bg-[#fffaf3] sm:max-w-lg"
       >
         <DialogHeader>
-          <DialogTitle className="font-heading text-xl font-bold text-zinc-50">
+          <DialogTitle className="font-heading text-xl font-bold text-[#33251e]">
             {mode === "local" ? `Finalizar — ${tableLabel ?? "Mesa"}` : "Entrega"}
           </DialogTitle>
-          <DialogDescription className="text-sm text-zinc-400">
+          <DialogDescription className="text-sm text-[#72594a]">
             Total do pedido:{" "}
-            <span data-testid="checkout-total" className="font-bold text-orange-500">
+            <span data-testid="checkout-total" className="font-bold text-[#b94f19]">
               {formatCents(totalCents)}
             </span>
           </DialogDescription>
@@ -118,7 +118,7 @@ export default function CheckoutDialog({
                   }}
                   placeholder="Seu nome"
                   autoComplete="name"
-                  className="border-zinc-800 bg-zinc-900"
+                  className="border-[#e9d7c2] bg-white"
                 />
                 {errors.name && (
                   <p data-testid="delivery-form-error-name" className="text-xs text-red-400">
@@ -140,7 +140,7 @@ export default function CheckoutDialog({
                   placeholder="(00) 00000-0000"
                   inputMode="tel"
                   autoComplete="tel"
-                  className="border-zinc-800 bg-zinc-900"
+                  className="border-[#e9d7c2] bg-white"
                 />
                 {errors.phone && (
                   <p data-testid="delivery-form-error-phone" className="text-xs text-red-400">
@@ -161,7 +161,7 @@ export default function CheckoutDialog({
                   }}
                   placeholder="Rua / Avenida"
                   autoComplete="street-address"
-                  className="border-zinc-800 bg-zinc-900"
+                  className="border-[#e9d7c2] bg-white"
                 />
                 {errors.address && (
                   <p data-testid="delivery-form-error-address" className="text-xs text-red-400">
@@ -183,7 +183,7 @@ export default function CheckoutDialog({
                     }}
                     placeholder="123"
                     inputMode="numeric"
-                    className="border-zinc-800 bg-zinc-900"
+                    className="border-[#e9d7c2] bg-white"
                   />
                   {errors.number && (
                     <p data-testid="delivery-form-error-number" className="text-xs text-red-400">
@@ -199,7 +199,7 @@ export default function CheckoutDialog({
                     value={complement}
                     onChange={(e) => setComplement(e.target.value)}
                     placeholder="Opcional"
-                    className="border-zinc-800 bg-zinc-900"
+                    className="border-[#e9d7c2] bg-white"
                   />
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default function CheckoutDialog({
                   value={reference}
                   onChange={(e) => setReference(e.target.value)}
                   placeholder="Opcional — ex.: perto da praça"
-                  className="border-zinc-800 bg-zinc-900"
+                  className="border-[#e9d7c2] bg-white"
                 />
               </div>
             </>
@@ -235,8 +235,8 @@ export default function CheckoutDialog({
                     }}
                     className={`min-h-12 rounded-lg border px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       selected
-                        ? "border-orange-600 bg-orange-950/40 text-orange-300"
-                        : "border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-zinc-600"
+                        ? "border-[#b94f19] bg-[#fff0d7]/40 text-[#9c4519]"
+                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-zinc-600"
                     }`}
                   >
                     {option.label}
@@ -265,7 +265,7 @@ export default function CheckoutDialog({
           data-testid="confirm-order-btn"
           onClick={handleSubmit}
           disabled={submitting}
-          className="h-12 w-full bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500 disabled:opacity-70"
+          className="h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500 disabled:opacity-70"
         >
           {submitting ? (
             <>
