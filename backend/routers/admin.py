@@ -43,7 +43,8 @@ def login(payload: LoginIn, response: Response):
         SESSION_COOKIE,
         token,
         httponly=True,
-        samesite="lax",
+        samesite="none",
+        secure=True,
         max_age=max_age,
         path="/",
     )
@@ -53,7 +54,7 @@ def login(payload: LoginIn, response: Response):
 @router.post("/logout")
 def logout(response: Response, galegonn_admin: str | None = Cookie(default=None)):
     destroy_session(galegonn_admin)
-    response.delete_cookie(SESSION_COOKIE, path="/")
+    response.delete_cookie(SESSION_COOKIE, path="/", samesite="none", secure=True)
     return {"ok": True}
 
 
