@@ -56,7 +56,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                     data-testid="header-mode-badge"
                     variant="outline"
                     size="sm"
-                    className="gap-1.5 border-[#f6d28a]/50 bg-[#4c3528] text-[#ffe4b6] hover:bg-[#634332] hover:text-white"
+                    className="gap-1.5 !border-[#f6d28a]/50 !bg-[#4c3528] !text-[#ffe4b6] hover:!bg-[#634332] hover:!text-[#fff9f0]"
                   />
                 }
               >
@@ -139,7 +139,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             data-testid="header-cart-button"
             variant="outline"
             size="sm"
-            className="relative gap-1.5 border-[#f6d28a]/50 bg-[#4c3528] text-[#ffe4b6] hover:bg-[#634332] hover:text-white"
+            className="relative gap-1.5 !border-[#f6d28a]/50 !bg-[#4c3528] !text-[#ffe4b6] hover:!bg-[#634332] hover:!text-[#fff9f0]"
             onClick={onOpenCart}
             aria-label={`Abrir carrinho, ${cartCount} itens`}
           >
