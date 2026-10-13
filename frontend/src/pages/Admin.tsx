@@ -56,7 +56,7 @@ export default function Admin() {
             <Link
               to="/"
               data-testid="admin-view-site"
-              className="text-xs text-[#72594a] hover:text-orange-400"
+              className="text-xs text-[#72594a] hover:text-[#9c4519]"
             >
               Ver site
             </Link>
@@ -172,11 +172,11 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
             data-testid="admin-login-submit"
             onClick={submit}
             disabled={loading}
-            className="h-11 bg-[#b94f19] font-bold text-white hover:bg-orange-500"
+            className="h-11 bg-[#b94f19] font-bold text-white hover:bg-[#a44416]"
           >
             {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : "Entrar"}
           </Button>
-          <Link to="/" className="text-center text-xs text-[#796452] hover:text-orange-400">
+          <Link to="/" className="text-center text-xs text-[#796452] hover:text-[#9c4519]">
             Voltar ao site
           </Link>
         </div>
@@ -478,7 +478,7 @@ function MenuTab() {
           size="sm"
           onClick={() => createProduct.mutate()}
           disabled={createProduct.isPending}
-          className="bg-[#b94f19] text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-[#a44416]"
         >
           <Plus className="mr-1 size-4" aria-hidden />
           Criar
@@ -667,7 +667,7 @@ function ProductRow({
             data-testid={`admin-save-${product.id}`}
             onClick={save}
             disabled={busy}
-            className="bg-[#b94f19] text-white hover:bg-orange-500"
+            className="bg-[#b94f19] text-white hover:bg-[#a44416]"
           >
             <Save className="mr-1 size-3.5" aria-hidden />
             Salvar
@@ -692,7 +692,7 @@ function ProductRow({
             <Star className="mr-1 size-3.5" aria-hidden />
             {featured ? "Destaque" : "Destacar"}
           </Button>
-          <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-[#d6bda4] px-2 py-1.5 text-xs text-[#604737] hover:border-zinc-500">
+          <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-[#d6bda4] px-2 py-1.5 text-xs text-[#604737] hover:border-[#b94f19]">
             <Upload className="size-3.5" aria-hidden />
             Foto
             <input
@@ -758,7 +758,7 @@ function TablesTab() {
         <Button
           size="sm"
           data-testid="admin-create-table"
-          className="bg-[#b94f19] text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-[#a44416]"
           onClick={async () => {
             try {
               await adminApi.createTable(label.trim());
@@ -900,7 +900,7 @@ function RestaurantTab() {
         <Button
           data-testid="admin-restaurant-save"
           disabled={busy}
-          className="bg-[#b94f19] text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-[#a44416]"
           onClick={async () => {
             setBusy(true);
             try {
@@ -923,7 +923,7 @@ function RestaurantTab() {
           <Save className="mr-1.5 size-4" aria-hidden />
           Salvar informações
         </Button>
-        <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[#d6bda4] px-3 py-2 text-sm text-[#604737] hover:border-zinc-500">
+        <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[#d6bda4] px-3 py-2 text-sm text-[#604737] hover:border-[#b94f19]">
           <Upload className="size-4" aria-hidden />
           Trocar logo
           <input
