@@ -19,9 +19,9 @@ export default function Home() {
           src={info.heroImage}
           alt=""
           aria-hidden
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#fff0d7] via-[#fff6e9]/70 to-[#fffaf3]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#fff4e2]/95 via-[#fff8ef]/85 to-[#fffaf3]/65" />
         <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 pt-14 pb-10 text-center sm:pt-20 sm:pb-14">
           <img
             data-testid="home-logo"
