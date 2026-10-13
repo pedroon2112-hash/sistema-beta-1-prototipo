@@ -159,7 +159,7 @@ export default function Menu() {
   }
 
   return (
-    <div className="min-h-svh bg-zinc-950 text-zinc-100">
+    <div className="min-h-svh bg-[#fffaf3] text-[#33251e]">
       <Header cartCount={cart.count} onOpenCart={() => setCartOpen(true)} />
       {categories.length > 0 && (
         <CategoryNav
@@ -177,7 +177,7 @@ export default function Menu() {
         )}
 
         {isLoading && (
-          <p data-testid="menu-loading" className="py-10 text-center text-zinc-400">
+          <p data-testid="menu-loading" className="py-10 text-center text-[#72594a]">
             <Loader2 className="mr-2 inline size-4 animate-spin" aria-hidden />
             Carregando cardápio...
           </p>
@@ -203,7 +203,7 @@ export default function Menu() {
               data-testid={`menu-section-${category.id}`}
               className="scroll-mt-32 pt-8"
             >
-              <h2 className="font-heading text-xl font-bold tracking-tight text-zinc-50">
+              <h2 className="font-heading text-xl font-bold tracking-tight text-[#33251e]">
                 {category.label}
               </h2>
               <div className="mt-3 grid gap-3 md:grid-cols-2">
@@ -267,37 +267,37 @@ function OrderPlaced({
   onBackToMenu: () => void;
 }) {
   return (
-    <div className="min-h-svh bg-zinc-950 text-zinc-100">
+    <div className="min-h-svh bg-[#fffaf3] text-[#33251e]">
       <main className="mx-auto max-w-2xl px-4 py-10">
         <div
           data-testid="order-placed"
           className="rounded-2xl border border-emerald-700/50 bg-emerald-950/20 p-5 text-center"
         >
           <CheckCircle2 className="mx-auto size-10 text-emerald-400" aria-hidden />
-          <h1 className="mt-2 font-heading text-2xl font-bold text-zinc-50">
+          <h1 className="mt-2 font-heading text-2xl font-bold text-[#33251e]">
             PEDIDO REALIZADO
           </h1>
-          <p data-testid="order-number" className="mt-1 font-heading text-lg text-orange-400">
+          <p data-testid="order-number" className="mt-1 font-heading text-lg text-[#a84a17]">
             {order.kind === "local" ? "Pedido Local" : "Pedido Delivery"} {order.number}
           </p>
           {order.tableLabel && (
-            <p data-testid="order-table" className="text-sm text-zinc-300">
+            <p data-testid="order-table" className="text-sm text-[#604737]">
               {order.tableLabel}
             </p>
           )}
-          <p className="mt-2 text-zinc-200">
+          <p className="mt-2 text-[#4a2d1f]">
             Total:{" "}
             <span data-testid="order-total" className="font-bold">
               {formatCents(order.totalCents)}
             </span>
           </p>
-          <p data-testid="order-payment" className="text-sm text-zinc-400">
+          <p data-testid="order-payment" className="text-sm text-[#72594a]">
             Pagamento: {order.paymentLabel}
           </p>
         </div>
 
-        <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
-          <h2 className="text-xs font-semibold tracking-widest text-orange-500 uppercase">
+        <div className="mt-4 rounded-xl border border-[#e9d7c2] bg-white/60 p-4">
+          <h2 className="text-xs font-semibold tracking-widest text-[#b94f19] uppercase">
             Itens registrados
           </h2>
           <ul className="mt-2 space-y-2">
@@ -305,33 +305,33 @@ function OrderPlaced({
               <li
                 key={`${item.productId}-${index}`}
                 data-testid={`placed-item-${index}`}
-                className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 text-sm"
+                className="rounded-lg border border-[#e9d7c2] bg-[#fffaf3]/60 p-3 text-sm"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium text-zinc-100">
+                  <span className="font-medium text-[#33251e]">
                     {item.quantity}x {item.productName}
                     {item.variantLabel ? ` — ${item.variantLabel}` : ""}
                   </span>
-                  <span className="font-bold text-orange-500">
+                  <span className="font-bold text-[#b94f19]">
                     {formatCents(item.subtotalCents)}
                   </span>
                 </div>
                 {item.options
                   .filter((o) => o.noExtraCost)
                   .map((o) => (
-                    <p key={o.optionLabel} className="text-xs text-zinc-400">
+                    <p key={o.optionLabel} className="text-xs text-[#72594a]">
                       {o.groupLabel}: {o.optionLabel}
                     </p>
                   ))}
                 {item.options
                   .filter((o) => !o.noExtraCost)
                   .map((o) => (
-                    <p key={o.optionLabel} className="text-xs text-zinc-400">
+                    <p key={o.optionLabel} className="text-xs text-[#72594a]">
                       + {o.quantity}x {o.optionLabel}
                     </p>
                   ))}
                 {item.note && (
-                  <p className="text-xs text-orange-400/90 italic">Obs.: {item.note}</p>
+                  <p className="text-xs text-[#a84a17]/90 italic">Obs.: {item.note}</p>
                 )}
               </li>
             ))}
@@ -342,7 +342,7 @@ function OrderPlaced({
           <Button
             data-testid="download-comanda-btn"
             onClick={() => downloadComanda(order.comandaUrl, order.comandaFilename)}
-            className="h-12 bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500"
+            className="h-12 bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500"
           >
             <Download className="mr-2 size-4" aria-hidden />
             Baixar comanda
