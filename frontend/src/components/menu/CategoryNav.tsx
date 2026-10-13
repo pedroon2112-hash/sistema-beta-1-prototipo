@@ -24,7 +24,7 @@ export default function CategoryNav({
     <nav
       data-testid="category-nav-bar"
       aria-label="Categorias do cardápio"
-      className="sticky top-16 z-30 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md"
+      className="sticky top-16 z-30 border-b border-[#e9d7c2]/80 bg-[#fffaf3]/90 backdrop-blur-md"
     >
       <div className="no-scrollbar mx-auto flex max-w-5xl gap-2 overflow-x-auto px-4 py-2.5">
         {categories.map((category) => {
@@ -38,8 +38,8 @@ export default function CategoryNav({
               onClick={() => onSelect(category.id)}
               className={`shrink-0 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
                 active
-                  ? "border-orange-600 bg-orange-600 text-white shadow shadow-orange-950/50"
-                  : "border-zinc-800 bg-zinc-900/80 text-zinc-300 hover:border-zinc-600 hover:text-zinc-100"
+                  ? "border-[#b94f19] bg-[#b94f19] text-white shadow shadow-orange-950/50"
+                  : "border-[#e9d7c2] bg-white/80 text-[#604737] hover:border-zinc-600 hover:text-zinc-100"
               }`}
             >
               {category.label}
