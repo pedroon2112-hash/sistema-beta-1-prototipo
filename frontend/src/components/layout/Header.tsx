@@ -139,7 +139,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             data-testid="header-cart-button"
             variant="outline"
             size="sm"
-            className="relative gap-1.5 border-[#f6d28a]/60 bg-[#fff9f0] text-[#33251e] hover:bg-[#f6d28a] hover:text-[#33251e]"
+            className="relative gap-1.5 border-[#f6d28a]/50 bg-[#4c3528] text-[#ffe4b6] hover:bg-[#634332] hover:text-white"
             onClick={onOpenCart}
             aria-label={`Abrir carrinho, ${cartCount} itens`}
           >
