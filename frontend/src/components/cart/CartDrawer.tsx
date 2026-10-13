@@ -145,7 +145,7 @@ export default function CartDrawer({
                               data-testid={`cart-qty-minus-${index}`}
                               aria-label={`Diminuir quantidade de ${item.productName}`}
                               onClick={() => decrement(item.cartItemId)}
-                              className="flex size-9 items-center justify-center rounded-md border border-[#d6bda4] text-[#604737] transition-colors hover:border-zinc-500"
+                              className="flex size-9 items-center justify-center rounded-md border border-[#d6bda4] text-[#604737] transition-colors hover:border-[#b94f19]"
                             >
                               <Minus className="size-4" aria-hidden />
                             </button>
@@ -160,7 +160,7 @@ export default function CartDrawer({
                               data-testid={`cart-qty-plus-${index}`}
                               aria-label={`Aumentar quantidade de ${item.productName}`}
                               onClick={() => increment(item.cartItemId)}
-                              className="flex size-9 items-center justify-center rounded-md bg-[#b94f19] text-white transition-colors hover:bg-orange-500"
+                              className="flex size-9 items-center justify-center rounded-md bg-[#b94f19] text-white transition-colors hover:bg-[#a44416]"
                             >
                               <Plus className="size-4" aria-hidden />
                             </button>
@@ -196,7 +196,7 @@ export default function CartDrawer({
               <Button
                 data-testid="checkout-open-btn"
                 onClick={onCheckout}
-                className="mt-3 h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500"
+                className="mt-3 h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-[#a44416]"
               >
                 Finalizar pedido
               </Button>
