@@ -188,11 +188,11 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
           className="h-36 w-full rounded-t-2xl object-cover"
         />
         <SheetHeader className="px-4 pt-3 pb-1">
-          <SheetTitle className="font-heading text-xl font-bold text-zinc-50">
+          <SheetTitle className="font-heading text-xl font-bold text-[#33251e]">
             {product.name}
           </SheetTitle>
           {product.description && (
-            <SheetDescription className="text-sm leading-snug text-zinc-400">
+            <SheetDescription className="text-sm leading-snug text-[#72594a]">
               {product.description}
             </SheetDescription>
           )}
@@ -202,7 +202,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
       <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-4 pt-2 pb-4">
         {product.variants.length > 0 ? (
           <section>
-            <p className="text-sm font-semibold text-zinc-200">Tamanho</p>
+            <p className="text-sm font-semibold text-[#4a2d1f]">Tamanho</p>
             <div className="mt-2 grid grid-cols-2 gap-2">
               {product.variants.map((v) => {
                 const selected = v.id === variantId;
@@ -219,8 +219,8 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                     onClick={() => setVariantId(v.id)}
                     className={`flex min-h-12 flex-col items-center justify-center rounded-lg border px-3 py-2 transition-colors duration-200 ${
                       selected
-                        ? "border-orange-600 bg-orange-950/40 text-orange-300"
-                        : "border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-zinc-600"
+                        ? "border-[#b94f19] bg-[#fff0d7] text-[#b94f19]"
+                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-[#c4a78d]"
                     }`}
                   >
                     <span className="text-sm font-medium">{v.label}</span>
@@ -240,14 +240,14 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
           return (
             <section key={g.id}>
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-semibold text-zinc-200">{g.label}</p>
+                <p className="text-sm font-semibold text-[#4a2d1f]">{g.label}</p>
                 {!g.allowQuantity && g.maxSelect > 1 && (
                   <span
                     data-testid="accompaniment-counter"
                     className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${
                       count >= g.maxSelect
-                        ? "border-orange-600 bg-orange-950/40 text-orange-300"
-                        : "border-zinc-700 bg-zinc-800 text-zinc-300"
+                        ? "border-[#b94f19] bg-[#fff0d7] text-[#b94f19]"
+                        : "border-[#d6bda4] bg-[#f9ecdb] text-[#604737]"
                     }`}
                   >
                     {count} de {g.maxSelect} selecionados
@@ -255,7 +255,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                 )}
               </div>
               {g.hint && (
-                <p className="mt-0.5 text-xs text-zinc-500">{g.hint}</p>
+                <p className="mt-0.5 text-xs text-[#33251e]0">{g.hint}</p>
               )}
 
               <div className="mt-2 grid gap-2">
@@ -272,15 +272,15 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                         data-testid={`extra-addon-option-${o.id}`}
                         className={`flex min-h-12 items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-colors duration-200 ${
                           extraQty > 0
-                            ? "border-orange-600 bg-orange-950/20"
-                            : "border-zinc-800 bg-zinc-900"
+                            ? "border-[#b94f19] bg-[#fff0d7]"
+                            : "border-[#e9d7c2] bg-white"
                         }`}
                       >
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-medium text-zinc-100">
+                          <p className="truncate text-sm font-medium text-[#33251e]">
                             {o.label}
                           </p>
-                          <p className="text-xs text-orange-400">
+                          <p className="text-xs text-[#b94f19]">
                             + {formatCents(o.priceCents)}
                           </p>
                         </div>
@@ -291,13 +291,13 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                             aria-label={`Remover um ${o.label} extra`}
                             disabled={extraQty === 0}
                             onClick={() => changeExtraQty(g, o.id, -1)}
-                            className="flex size-9 items-center justify-center rounded-md border border-zinc-700 text-zinc-300 disabled:opacity-40"
+                            className="flex size-9 items-center justify-center rounded-md border border-[#d6bda4] text-[#604737] disabled:opacity-40"
                           >
                             <Minus className="size-4" aria-hidden />
                           </button>
                           <span
                             data-testid={`extra-qty-value-${o.id}`}
-                            className="w-6 text-center text-sm font-bold text-zinc-100"
+                            className="w-6 text-center text-sm font-bold text-[#33251e]"
                           >
                             {extraQty}
                           </span>
@@ -306,7 +306,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                             data-testid={`extra-qty-plus-${o.id}`}
                             aria-label={`Adicionar um ${o.label} extra`}
                             onClick={() => changeExtraQty(g, o.id, 1)}
-                            className="flex size-9 items-center justify-center rounded-md bg-orange-600 text-white"
+                            className="flex size-9 items-center justify-center rounded-md bg-[#b94f19] text-white"
                           >
                             <Plus className="size-4" aria-hidden />
                           </button>
@@ -326,18 +326,18 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                         onClick={() => toggleOption(g, o.id)}
                         className={`flex min-h-12 items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left transition-colors duration-200 ${
                           selected
-                            ? "border-orange-600 bg-orange-950/40"
-                            : "border-zinc-800 bg-zinc-900 hover:border-zinc-600"
+                            ? "border-[#b94f19] bg-[#fff0d7]"
+                            : "border-[#e9d7c2] bg-white hover:border-[#c4a78d]"
                         }`}
                       >
-                        <span className="text-sm font-medium text-zinc-100">
+                        <span className="text-sm font-medium text-[#33251e]">
                           {o.label}
                         </span>
                         <span
                           className={`size-4 rounded-full border-2 ${
                             selected
-                              ? "border-orange-500 bg-orange-500"
-                              : "border-zinc-600"
+                              ? "border-orange-500 bg-[#d66a21]"
+                              : "border-[#c4a78d]"
                           }`}
                           aria-hidden
                         />
@@ -358,20 +358,20 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                       }}
                       className={`flex min-h-12 items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left transition-colors duration-200 ${
                         selected
-                          ? "border-orange-600 bg-orange-950/40"
+                          ? "border-[#b94f19] bg-[#fff0d7]"
                           : blocked
-                            ? "border-zinc-800 bg-zinc-900 opacity-40"
-                            : "border-zinc-800 bg-zinc-900 hover:border-zinc-600"
+                            ? "border-[#e9d7c2] bg-white opacity-40"
+                            : "border-[#e9d7c2] bg-white hover:border-[#c4a78d]"
                       }`}
                     >
-                      <span className="text-sm font-medium text-zinc-100">
+                      <span className="text-sm font-medium text-[#33251e]">
                         {o.label}
                       </span>
                       <span
                         className={`flex size-5 items-center justify-center rounded border-2 text-[11px] font-black ${
                           selected
-                            ? "border-orange-500 bg-orange-500 text-white"
-                            : "border-zinc-600 text-transparent"
+                            ? "border-orange-500 bg-[#d66a21] text-white"
+                            : "border-[#c4a78d] text-transparent"
                         }`}
                         aria-hidden
                       >
@@ -388,11 +388,11 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
         <section>
           <label
             htmlFor="product-note"
-            className="text-sm font-semibold text-zinc-200"
+            className="text-sm font-semibold text-[#4a2d1f]"
           >
             Observação do item
           </label>
-          <p className="mt-0.5 text-xs text-zinc-500">
+          <p className="mt-0.5 text-xs text-[#33251e]0">
             Ex.: sem cebola, ponto da carne
           </p>
           <Textarea
@@ -401,12 +401,12 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Escreva aqui, se precisar"
-            className="mt-2 min-h-20 border-zinc-800 bg-zinc-900 text-sm placeholder:text-zinc-600"
+            className="mt-2 min-h-20 border-[#e9d7c2] bg-white text-sm placeholder:text-zinc-600"
           />
         </section>
       </div>
 
-      <SheetFooter className="shrink-0 border-t border-zinc-800 bg-zinc-950 p-4">
+      <SheetFooter className="shrink-0 border-t border-[#e9d7c2] bg-[#fffaf3] p-4">
         <div className="flex w-full items-center gap-3">
           <div className="flex items-center gap-1.5">
             <button
@@ -414,13 +414,13 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
               data-testid="product-qty-minus"
               aria-label="Diminuir quantidade"
               onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="flex size-11 items-center justify-center rounded-lg border border-zinc-700 text-zinc-300"
+              className="flex size-11 items-center justify-center rounded-lg border border-[#d6bda4] text-[#604737]"
             >
               <Minus className="size-4" aria-hidden />
             </button>
             <span
               data-testid="product-qty-value"
-              className="w-7 text-center font-heading text-lg font-bold text-zinc-50"
+              className="w-7 text-center font-heading text-lg font-bold text-[#33251e]"
             >
               {qty}
             </span>
@@ -429,7 +429,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
               data-testid="product-qty-plus"
               aria-label="Aumentar quantidade"
               onClick={() => setQty((q) => Math.min(20, q + 1))}
-              className="flex size-11 items-center justify-center rounded-lg border border-zinc-700 text-zinc-300"
+              className="flex size-11 items-center justify-center rounded-lg border border-[#d6bda4] text-[#604737]"
             >
               <Plus className="size-4" aria-hidden />
             </button>
@@ -439,7 +439,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
               data-testid="add-to-cart-submit-btn"
               disabled={missingRequired.length > 0}
               onClick={handleAdd}
-              className="h-12 w-full bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500"
+              className="h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-[#d66a21]"
             >
               {missingRequired.length > 0
                 ? `Escolha: ${missingRequired[0].hint ?? missingRequired[0].label}`
