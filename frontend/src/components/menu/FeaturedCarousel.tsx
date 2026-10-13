@@ -29,7 +29,7 @@ export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselP
             type="button"
             data-testid={`featured-card-${product.id}`}
             onClick={() => onOpen(product)}
-            className="w-52 shrink-0 snap-start overflow-hidden rounded-xl border border-[#e9d7c2] bg-white text-left transition-colors duration-200 hover:border-[#b94f19]/60 sm:w-60"
+            className="w-52 shrink-0 snap-start overflow-hidden rounded-xl border border-[#e9d7c2] bg-white text-left transition-[background-color,border-color,box-shadow] duration-200 hover:border-[#b94f19]/70 hover:bg-[#f1e1cf] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b94f19] sm:w-60"
           >
             <div className="relative">
               <img
@@ -52,7 +52,7 @@ export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselP
               <div className="mt-2 flex items-center justify-between">
                 <div>
                   {product.variants.length > 0 && (
-                    <p className="text-[11px] text-[#33251e]0">a partir de</p>
+                    <p className="text-[11px] text-[#796452]">a partir de</p>
                   )}
                   <span className="font-heading text-base font-bold text-[#b94f19]">
                     {formatCents(minPriceCents(product))}
