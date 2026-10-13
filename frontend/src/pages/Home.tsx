@@ -14,15 +14,15 @@ export default function Home() {
 
   return (
     <div className="flex min-h-svh flex-col bg-[#fffaf3] text-[#33251e]">
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-[#fff6e9]">
         <img
           src={info.heroImage}
           alt=""
           aria-hidden
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-30"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#fff4e2]/95 via-[#fff8ef]/85 to-[#fffaf3]/65" />
-        <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 pt-14 pb-10 text-center sm:pt-20 sm:pb-14">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fff6e9]/75 via-[#fff6e9]/85 to-[#fff6e9]" />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 pt-14 pb-12 text-center sm:pt-20 sm:pb-16">
           <img
             data-testid="home-logo"
             src={info.logo}
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-3xl flex-1 px-4 pb-14">
+      <section className="mx-auto w-full max-w-3xl flex-1 px-4 pt-6 pb-14">
         <h2 className="sr-only">Como você quer pedir?</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <button
