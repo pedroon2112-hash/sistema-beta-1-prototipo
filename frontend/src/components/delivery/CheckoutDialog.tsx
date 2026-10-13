@@ -236,7 +236,7 @@ export default function CheckoutDialog({
                     className={`min-h-12 rounded-lg border px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       selected
                         ? "border-[#b94f19] bg-[#fff0d7]/40 text-[#9c4519]"
-                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-zinc-600"
+                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-[#b94f19]"
                     }`}
                   >
                     {option.label}
@@ -265,7 +265,7 @@ export default function CheckoutDialog({
           data-testid="confirm-order-btn"
           onClick={handleSubmit}
           disabled={submitting}
-          className="h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500 disabled:opacity-70"
+          className="h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-[#a44416] disabled:opacity-70"
         >
           {submitting ? (
             <>
