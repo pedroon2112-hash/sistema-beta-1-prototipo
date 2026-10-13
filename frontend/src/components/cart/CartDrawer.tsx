@@ -45,11 +45,11 @@ export default function CartDrawer({
             : "flex w-full flex-col gap-0 sm:max-w-md"
         }
       >
-        <SheetHeader className="border-b border-zinc-800 px-4 py-3">
-          <SheetTitle className="font-heading text-lg font-bold text-zinc-50">
+        <SheetHeader className="border-b border-[#e9d7c2] px-4 py-3">
+          <SheetTitle className="font-heading text-lg font-bold text-[#33251e]">
             Seu carrinho
           </SheetTitle>
-          <SheetDescription className="text-sm text-zinc-400">
+          <SheetDescription className="text-sm text-[#72594a]">
             {count === 0 ? "Nenhum item ainda" : `${count} ${count === 1 ? "item" : "itens"}`}
           </SheetDescription>
         </SheetHeader>
@@ -60,7 +60,7 @@ export default function CartDrawer({
             className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center"
           >
             <ShoppingBag className="size-10 text-zinc-600" aria-hidden />
-            <p className="text-zinc-400">Seu carrinho está vazio</p>
+            <p className="text-[#72594a]">Seu carrinho está vazio</p>
             <Button
               data-testid="cart-view-menu-btn"
               variant="outline"
@@ -91,7 +91,7 @@ export default function CartDrawer({
                   <div
                     key={item.cartItemId}
                     data-testid={`cart-item-row-${index}`}
-                    className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-3"
+                    className="rounded-xl border border-[#e9d7c2] bg-white/70 p-3"
                   >
                     <div className="flex gap-3">
                       <img
@@ -101,7 +101,7 @@ export default function CartDrawer({
                       />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm font-semibold text-zinc-100">
+                          <p className="text-sm font-semibold text-[#33251e]">
                             {item.quantity}x {item.productName}
                           </p>
                           <button
@@ -109,31 +109,31 @@ export default function CartDrawer({
                             data-testid={`cart-item-remove-${index}`}
                             aria-label={`Remover ${item.productName} do carrinho`}
                             onClick={() => remove(item.cartItemId)}
-                            className="text-zinc-500 transition-colors hover:text-red-400"
+                            className="text-[#796452] transition-colors hover:text-red-400"
                           >
                             <Trash2 className="size-4" aria-hidden />
                           </button>
                         </div>
 
                         {item.variantLabel && (
-                          <p className="text-xs text-zinc-400">Tamanho: {item.variantLabel}</p>
+                          <p className="text-xs text-[#72594a]">Tamanho: {item.variantLabel}</p>
                         )}
                         {flavor && (
-                          <p className="text-xs text-zinc-400">Sabor: {flavor.optionLabel}</p>
+                          <p className="text-xs text-[#72594a]">Sabor: {flavor.optionLabel}</p>
                         )}
                         {included.length > 0 && (
-                          <p className="text-xs text-zinc-400">
+                          <p className="text-xs text-[#72594a]">
                             Inclusos: {included.map((o) => o.optionLabel).join(", ")}
                           </p>
                         )}
                         {extras.map((o) => (
-                          <p key={o.optionId} className="text-xs text-zinc-400">
+                          <p key={o.optionId} className="text-xs text-[#72594a]">
                             + {o.quantity}x {o.optionLabel} (
                             {formatCents(o.unitPriceCents * o.quantity)})
                           </p>
                         ))}
                         {item.note && (
-                          <p className="mt-1 text-xs text-orange-400/90 italic">
+                          <p className="mt-1 text-xs text-[#a84a17]/90 italic">
                             Obs.: {item.note}
                           </p>
                         )}
@@ -145,13 +145,13 @@ export default function CartDrawer({
                               data-testid={`cart-qty-minus-${index}`}
                               aria-label={`Diminuir quantidade de ${item.productName}`}
                               onClick={() => decrement(item.cartItemId)}
-                              className="flex size-9 items-center justify-center rounded-md border border-zinc-700 text-zinc-300 transition-colors hover:border-zinc-500"
+                              className="flex size-9 items-center justify-center rounded-md border border-[#d6bda4] text-[#604737] transition-colors hover:border-zinc-500"
                             >
                               <Minus className="size-4" aria-hidden />
                             </button>
                             <span
                               data-testid={`cart-item-qty-${index}`}
-                              className="w-6 text-center text-sm font-bold text-zinc-100"
+                              className="w-6 text-center text-sm font-bold text-[#33251e]"
                             >
                               {item.quantity}
                             </span>
@@ -160,14 +160,14 @@ export default function CartDrawer({
                               data-testid={`cart-qty-plus-${index}`}
                               aria-label={`Aumentar quantidade de ${item.productName}`}
                               onClick={() => increment(item.cartItemId)}
-                              className="flex size-9 items-center justify-center rounded-md bg-orange-600 text-white transition-colors hover:bg-orange-500"
+                              className="flex size-9 items-center justify-center rounded-md bg-[#b94f19] text-white transition-colors hover:bg-orange-500"
                             >
                               <Plus className="size-4" aria-hidden />
                             </button>
                           </div>
                           <span
                             data-testid={`cart-item-total-${index}`}
-                            className="font-heading text-base font-bold text-orange-500"
+                            className="font-heading text-base font-bold text-[#b94f19]"
                           >
                             {formatCents(lineTotalCentsOf(item))}
                           </span>
@@ -179,16 +179,16 @@ export default function CartDrawer({
               })}
             </div>
 
-            <div className="shrink-0 border-t border-zinc-800 bg-zinc-950 p-4">
-              <div className="flex items-center justify-between text-sm text-zinc-400">
+            <div className="shrink-0 border-t border-[#e9d7c2] bg-[#fffaf3] p-4">
+              <div className="flex items-center justify-between text-sm text-[#72594a]">
                 <span>Subtotal</span>
                 <span data-testid="cart-subtotal">{formatCents(subtotalCents)}</span>
               </div>
-              <div className="mt-1 flex items-center justify-between font-heading text-lg font-bold text-zinc-50">
+              <div className="mt-1 flex items-center justify-between font-heading text-lg font-bold text-[#33251e]">
                 <span>Total</span>
                 <span data-testid="cart-total">{formatCents(subtotalCents)}</span>
               </div>
-              <p className="mt-1 flex items-start gap-1.5 text-[11px] text-zinc-500">
+              <p className="mt-1 flex items-start gap-1.5 text-[11px] text-[#796452]">
                 <Info className="mt-0.5 size-3 shrink-0" aria-hidden />
                 O valor final é confirmado pelo restaurante ao registrar o pedido.
               </p>
@@ -196,7 +196,7 @@ export default function CartDrawer({
               <Button
                 data-testid="checkout-open-btn"
                 onClick={onCheckout}
-                className="mt-3 h-12 w-full bg-orange-600 font-heading text-base font-bold text-white hover:bg-orange-500"
+                className="mt-3 h-12 w-full bg-[#b94f19] font-heading text-base font-bold text-white hover:bg-orange-500"
               >
                 Finalizar pedido
               </Button>
