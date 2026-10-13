@@ -48,7 +48,7 @@ export default function Home() {
             type="button"
             data-testid="mode-local-button"
             onClick={() => navigate("/local")}
-            className="group flex flex-col gap-6 rounded-2xl border border-[#e9d7c2] bg-white/80 p-6 text-left transition-colors duration-200 hover:border-[#b94f19]/60"
+            className="group flex flex-col gap-6 rounded-2xl border border-[#e9d7c2] bg-white/80 p-6 text-left transition-colors duration-200 hover:border-[#b94f19]/70 hover:bg-[#f1e1cf] hover:shadow-sm"
           >
             <span className="flex size-12 items-center justify-center rounded-xl bg-[#b94f19]/15 text-[#b94f19]">
               <UtensilsCrossed className="size-6" aria-hidden />
@@ -74,7 +74,7 @@ export default function Home() {
               setDeliveryMode();
               navigate("/cardapio");
             }}
-            className="group flex flex-col gap-6 rounded-2xl border border-[#e9d7c2] bg-white/80 p-6 text-left transition-colors duration-200 hover:border-[#b94f19]/60"
+            className="group flex flex-col gap-6 rounded-2xl border border-[#e9d7c2] bg-white/80 p-6 text-left transition-colors duration-200 hover:border-[#b94f19]/70 hover:bg-[#f1e1cf] hover:shadow-sm"
           >
             <span className="flex size-12 items-center justify-center rounded-xl bg-[#b94f19]/15 text-[#b94f19]">
               <Bike className="size-6" aria-hidden />
