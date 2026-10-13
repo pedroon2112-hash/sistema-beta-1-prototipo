@@ -34,7 +34,7 @@ export default function Admin() {
 
   if (meQuery.isLoading) {
     return (
-      <div className="flex min-h-svh items-center justify-center bg-zinc-950 text-zinc-300">
+      <div className="flex min-h-svh items-center justify-center bg-[#fffaf3] text-[#604737]">
         <Loader2 className="size-5 animate-spin" aria-hidden />
       </div>
     );
@@ -43,20 +43,20 @@ export default function Admin() {
   if (meQuery.isError) return <LoginScreen onLogged={() => meQuery.refetch()} />;
 
   return (
-    <div className="min-h-svh bg-zinc-950 text-zinc-100">
-      <header className="sticky top-0 z-30 border-b border-orange-700/40 bg-zinc-950/95 backdrop-blur">
+    <div className="min-h-svh bg-[#fffaf3] text-[#33251e]">
+      <header className="sticky top-0 z-30 border-b border-[#b94f19]/40 bg-[#fffaf3]/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
-          <span className="rounded-md bg-orange-600 px-2 py-1 text-xs font-bold text-white">
+          <span className="rounded-md bg-[#b94f19] px-2 py-1 text-xs font-bold text-white">
             MODO ADMIN
           </span>
-          <span className="truncate text-sm text-zinc-400">
+          <span className="truncate text-sm text-[#72594a]">
             {meQuery.data?.username}
           </span>
           <div className="ml-auto flex items-center gap-2">
             <Link
               to="/"
               data-testid="admin-view-site"
-              className="text-xs text-zinc-400 hover:text-orange-400"
+              className="text-xs text-[#72594a] hover:text-orange-400"
             >
               Ver site
             </Link>
@@ -134,10 +134,10 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
   }
 
   return (
-    <div className="flex min-h-svh items-center justify-center bg-zinc-950 px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-zinc-800 bg-zinc-900/70 p-6">
-        <h1 className="font-heading text-xl font-bold text-zinc-50">Admin GalegonN</h1>
-        <p className="mt-1 text-sm text-zinc-400">Acesso restrito ao restaurante.</p>
+    <div className="flex min-h-svh items-center justify-center bg-[#fffaf3] px-4">
+      <div className="w-full max-w-sm rounded-2xl border border-[#e9d7c2] bg-white/70 p-6">
+        <h1 className="font-heading text-xl font-bold text-[#33251e]">Admin GalegonN</h1>
+        <p className="mt-1 text-sm text-[#72594a]">Acesso restrito ao restaurante.</p>
         <div className="mt-4 grid gap-3">
           <div className="grid gap-1.5">
             <Label htmlFor="admin-user">Usuário</Label>
@@ -147,7 +147,7 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
-              className="border-zinc-800 bg-zinc-950"
+              className="border-[#e9d7c2] bg-[#fffaf3]"
             />
           </div>
           <div className="grid gap-1.5">
@@ -160,7 +160,7 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && submit()}
               autoComplete="current-password"
-              className="border-zinc-800 bg-zinc-950"
+              className="border-[#e9d7c2] bg-[#fffaf3]"
             />
           </div>
           {error && (
@@ -172,11 +172,11 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
             data-testid="admin-login-submit"
             onClick={submit}
             disabled={loading}
-            className="h-11 bg-orange-600 font-bold text-white hover:bg-orange-500"
+            className="h-11 bg-[#b94f19] font-bold text-white hover:bg-orange-500"
           >
             {loading ? <Loader2 className="size-4 animate-spin" aria-hidden /> : "Entrar"}
           </Button>
-          <Link to="/" className="text-center text-xs text-zinc-500 hover:text-orange-400">
+          <Link to="/" className="text-center text-xs text-[#796452] hover:text-orange-400">
             Voltar ao site
           </Link>
         </div>
@@ -199,15 +199,15 @@ function RevenueRow({
   testId: string;
 }) {
   return (
-    <div data-testid={testId} className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-400">
+    <div data-testid={testId} className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#72594a]">
       <span>
-        Local: <b className="text-zinc-200">{formatCents(local)}</b>
+        Local: <b className="text-[#4a2d1f]">{formatCents(local)}</b>
       </span>
       <span>
-        Delivery: <b className="text-zinc-200">{formatCents(delivery)}</b>
+        Delivery: <b className="text-[#4a2d1f]">{formatCents(delivery)}</b>
       </span>
       <span>
-        Total {label}: <b className="text-orange-400">{formatCents(total)}</b>
+        Total {label}: <b className="text-[#a84a17]">{formatCents(total)}</b>
       </span>
     </div>
   );
@@ -218,12 +218,12 @@ function OrdersTab() {
   const periods = useQuery({ queryKey: ["admin", "periods"], queryFn: adminApi.periods });
 
   if (periods.isLoading) {
-    return <Loader2 className="size-5 animate-spin text-zinc-400" aria-hidden />;
+    return <Loader2 className="size-5 animate-spin text-[#72594a]" aria-hidden />;
   }
   const years = periods.data?.years ?? [];
   if (years.length === 0) {
     return (
-      <p data-testid="admin-orders-empty" className="text-zinc-400">
+      <p data-testid="admin-orders-empty" className="text-[#72594a]">
         Nenhum pedido registrado ainda.
       </p>
     );
@@ -232,7 +232,7 @@ function OrdersTab() {
   return (
     <div data-testid="admin-history" className="space-y-4">
       {years.map((year: YearNode) => (
-        <div key={year.year} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
+        <div key={year.year} className="rounded-xl border border-[#e9d7c2] bg-white/50 p-4">
           <h2 data-testid={`history-year-${year.year}`} className="font-heading text-lg font-bold">
             {year.year}
           </h2>
@@ -245,10 +245,10 @@ function OrdersTab() {
           />
           <div className="mt-3 space-y-3">
             {year.months.map((month) => (
-              <div key={month.month} className="rounded-lg border border-zinc-800 p-3">
+              <div key={month.month} className="rounded-lg border border-[#e9d7c2] p-3">
                 <h3
                   data-testid={`history-month-${year.year}-${month.month}`}
-                  className="font-heading font-semibold text-zinc-100"
+                  className="font-heading font-semibold text-[#33251e]"
                 >
                   {month.label}
                 </h3>
@@ -261,17 +261,17 @@ function OrdersTab() {
                 />
                 <div className="mt-2 space-y-2">
                   {month.days.map((day) => (
-                    <div key={day.date} className="rounded-md bg-zinc-950/60 p-2">
+                    <div key={day.date} className="rounded-md bg-[#fffaf3]/60 p-2">
                       <button
                         type="button"
                         data-testid={`history-day-${day.date}`}
                         onClick={() => setOpenDate(openDate === day.date ? null : day.date)}
                         className="flex w-full items-center justify-between gap-2 text-left"
                       >
-                        <span className="text-sm font-medium text-zinc-200">
+                        <span className="text-sm font-medium text-[#4a2d1f]">
                           Dia {String(day.day).padStart(2, "0")} — {formatDateBR(day.date)}
                         </span>
-                        <span className="flex items-center gap-2 text-xs text-zinc-400">
+                        <span className="flex items-center gap-2 text-xs text-[#72594a]">
                           {day.orders} comandas
                           <ChevronDown
                             className={`size-4 transition-transform ${openDate === day.date ? "rotate-180" : ""}`}
@@ -310,9 +310,9 @@ function DayDetail({ date }: { date: string }) {
   });
 
   return (
-    <div className="mt-3 space-y-3 border-t border-zinc-800 pt-3">
+    <div className="mt-3 space-y-3 border-t border-[#e9d7c2] pt-3">
       <div>
-        <h4 className="text-xs font-semibold uppercase tracking-wider text-orange-500">
+        <h4 className="text-xs font-semibold uppercase tracking-wider text-[#b94f19]">
           Comandas do dia
         </h4>
         <div className="mt-2 space-y-1.5">
@@ -320,15 +320,15 @@ function DayDetail({ date }: { date: string }) {
             <div
               key={order.id}
               data-testid={`admin-order-${order.kind}-${order.number}`}
-              className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-zinc-800 bg-zinc-900/60 px-2.5 py-2 text-sm"
+              className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-[#e9d7c2] bg-white/60 px-2.5 py-2 text-sm"
             >
-              <span className="text-zinc-200">
-                <b className="uppercase text-orange-400">{order.kind}</b> nº {order.number} ·{" "}
+              <span className="text-[#4a2d1f]">
+                <b className="uppercase text-[#a84a17]">{order.kind}</b> nº {order.number} ·{" "}
                 {order.localTime} · {order.tableLabel ?? order.customerName ?? "—"} ·{" "}
                 {order.paymentLabel}
               </span>
               <span className="flex items-center gap-2">
-                <b className="text-zinc-100">{formatCents(order.totalCents)}</b>
+                <b className="text-[#33251e]">{formatCents(order.totalCents)}</b>
                 <Button
                   size="xs"
                   variant="outline"
@@ -347,14 +347,14 @@ function DayDetail({ date }: { date: string }) {
             </div>
           ))}
           {(orders.data?.orders ?? []).length === 0 && (
-            <p className="text-xs text-zinc-500">Sem comandas neste dia.</p>
+            <p className="text-xs text-[#796452]">Sem comandas neste dia.</p>
           )}
         </div>
       </div>
 
       {(byTable.data?.groups ?? []).length > 0 && (
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-orange-500">
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-[#b94f19]">
             Agrupamento por mesa (histórico)
           </h4>
           <div className="mt-2 grid gap-2 sm:grid-cols-2">
@@ -362,14 +362,14 @@ function DayDetail({ date }: { date: string }) {
               <div
                 key={group.tableLabel ?? "sem-mesa"}
                 data-testid={`admin-table-group-${(group.tableLabel ?? "sem-mesa").replace(/\s+/g, "-")}`}
-                className="rounded-md border border-zinc-800 bg-zinc-900/60 p-2.5 text-sm"
+                className="rounded-md border border-[#e9d7c2] bg-white/60 p-2.5 text-sm"
               >
-                <p className="font-semibold text-zinc-100">{group.tableLabel ?? "Sem mesa"}</p>
-                <p className="text-xs text-zinc-400">
+                <p className="font-semibold text-[#33251e]">{group.tableLabel ?? "Sem mesa"}</p>
+                <p className="text-xs text-[#72594a]">
                   {group.comandas} {group.comandas === 1 ? "comanda" : "comandas"} ·{" "}
-                  <b className="text-orange-400">{formatCents(group.totalCents)}</b>
+                  <b className="text-[#a84a17]">{formatCents(group.totalCents)}</b>
                 </p>
-                <ul className="mt-1 space-y-0.5 text-xs text-zinc-400">
+                <ul className="mt-1 space-y-0.5 text-xs text-[#72594a]">
                   {group.orders.map((o) => (
                     <li key={o.id}>
                       Pedido Local {o.number} · {o.localTime} · {formatCents(o.totalCents)}
@@ -423,7 +423,7 @@ function MenuTab() {
   });
 
   if (catalogQuery.isLoading) {
-    return <Loader2 className="size-5 animate-spin text-zinc-400" aria-hidden />;
+    return <Loader2 className="size-5 animate-spin text-[#72594a]" aria-hidden />;
   }
 
   return (
@@ -437,8 +437,8 @@ function MenuTab() {
             onClick={() => setCategoryId(cat.id)}
             className={`shrink-0 rounded-full border px-3 py-1.5 text-sm ${
               cat.id === activeCategory
-                ? "border-orange-600 bg-orange-600 text-white"
-                : "border-zinc-800 bg-zinc-900 text-zinc-300"
+                ? "border-[#b94f19] bg-[#b94f19] text-white"
+                : "border-[#e9d7c2] bg-white text-[#604737]"
             }`}
           >
             {cat.label}
@@ -446,7 +446,7 @@ function MenuTab() {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-end gap-2 rounded-xl border border-zinc-800 bg-zinc-900/50 p-3">
+      <div className="flex flex-wrap items-end gap-2 rounded-xl border border-[#e9d7c2] bg-white/50 p-3">
         <div className="grid gap-1">
           <Label htmlFor="new-product-name" className="text-xs">
             Novo produto
@@ -457,7 +457,7 @@ function MenuTab() {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Nome"
-            className="h-9 w-48 border-zinc-800 bg-zinc-950"
+            className="h-9 w-48 border-[#e9d7c2] bg-[#fffaf3]"
           />
         </div>
         <div className="grid gap-1">
@@ -470,7 +470,7 @@ function MenuTab() {
             value={newPrice}
             onChange={(e) => setNewPrice(e.target.value)}
             placeholder="0,00"
-            className="h-9 w-28 border-zinc-800 bg-zinc-950"
+            className="h-9 w-28 border-[#e9d7c2] bg-[#fffaf3]"
           />
         </div>
         <Button
@@ -478,7 +478,7 @@ function MenuTab() {
           size="sm"
           onClick={() => createProduct.mutate()}
           disabled={createProduct.isPending}
-          className="bg-orange-600 text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-orange-500"
         >
           <Plus className="mr-1 size-4" aria-hidden />
           Criar
@@ -613,7 +613,7 @@ function ProductRow({
   return (
     <div
       data-testid={`admin-product-${product.id}`}
-      className={`rounded-xl border p-3 ${product.available ? "border-zinc-800 bg-zinc-900/50" : "border-amber-800/60 bg-amber-950/10"}`}
+      className={`rounded-xl border p-3 ${product.available ? "border-[#e9d7c2] bg-white/50" : "border-amber-800/60 bg-amber-950/10"}`}
     >
       <div className="flex flex-wrap items-start gap-3">
         <img src={product.image || "/favicon.svg"} alt="" className="size-14 rounded-lg object-cover" />
@@ -622,39 +622,39 @@ function ProductRow({
             data-testid={`admin-product-name-${product.id}`}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="h-9 border-zinc-800 bg-zinc-950"
+            className="h-9 border-[#e9d7c2] bg-[#fffaf3]"
           />
           <Input
             data-testid={`admin-product-desc-${product.id}`}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descrição"
-            className="h-9 border-zinc-800 bg-zinc-950 text-xs"
+            className="h-9 border-[#e9d7c2] bg-[#fffaf3] text-xs"
           />
         </div>
 
         <div className="grid gap-2">
           {product.variants.length === 0 ? (
             <div className="grid gap-1">
-              <Label className="text-[11px] text-zinc-400">Preço</Label>
+              <Label className="text-[11px] text-[#72594a]">Preço</Label>
               <Input
                 data-testid={`admin-product-price-${product.id}`}
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="h-9 w-24 border-zinc-800 bg-zinc-950"
+                className="h-9 w-24 border-[#e9d7c2] bg-[#fffaf3]"
               />
             </div>
           ) : (
             product.variants.map((v) => (
               <div key={v.id} className="grid gap-1">
-                <Label className="text-[11px] text-zinc-400">{v.label}</Label>
+                <Label className="text-[11px] text-[#72594a]">{v.label}</Label>
                 <Input
                   data-testid={`admin-variant-price-${product.id}-${v.id}`}
                   value={variantPrices[v.id] ?? ""}
                   onChange={(e) =>
                     setVariantPrices((prev) => ({ ...prev, [v.id]: e.target.value }))
                   }
-                  className="h-9 w-24 border-zinc-800 bg-zinc-950"
+                  className="h-9 w-24 border-[#e9d7c2] bg-[#fffaf3]"
                 />
               </div>
             ))
@@ -667,7 +667,7 @@ function ProductRow({
             data-testid={`admin-save-${product.id}`}
             onClick={save}
             disabled={busy}
-            className="bg-orange-600 text-white hover:bg-orange-500"
+            className="bg-[#b94f19] text-white hover:bg-orange-500"
           >
             <Save className="mr-1 size-3.5" aria-hidden />
             Salvar
@@ -687,12 +687,12 @@ function ProductRow({
             data-testid={`admin-toggle-featured-${product.id}`}
             onClick={toggleFeatured}
             disabled={busy}
-            className={featured ? "border-orange-600 text-orange-400" : ""}
+            className={featured ? "border-[#b94f19] text-[#a84a17]" : ""}
           >
             <Star className="mr-1 size-3.5" aria-hidden />
             {featured ? "Destaque" : "Destacar"}
           </Button>
-          <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-zinc-700 px-2 py-1.5 text-xs text-zinc-300 hover:border-zinc-500">
+          <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-[#d6bda4] px-2 py-1.5 text-xs text-[#604737] hover:border-zinc-500">
             <Upload className="size-3.5" aria-hidden />
             Foto
             <input
@@ -741,7 +741,7 @@ function TablesTab() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-end gap-2 rounded-xl border border-zinc-800 bg-zinc-900/50 p-3">
+      <div className="flex flex-wrap items-end gap-2 rounded-xl border border-[#e9d7c2] bg-white/50 p-3">
         <div className="grid gap-1">
           <Label htmlFor="new-table" className="text-xs">
             Nova mesa
@@ -752,13 +752,13 @@ function TablesTab() {
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder="Mesa 13"
-            className="h-9 w-40 border-zinc-800 bg-zinc-950"
+            className="h-9 w-40 border-[#e9d7c2] bg-[#fffaf3]"
           />
         </div>
         <Button
           size="sm"
           data-testid="admin-create-table"
-          className="bg-orange-600 text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-orange-500"
           onClick={async () => {
             try {
               await adminApi.createTable(label.trim());
@@ -781,7 +781,7 @@ function TablesTab() {
           <TableRow key={table.id} id={table.id} label={table.label} onChanged={refresh} />
         ))}
       </div>
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-[#796452]">
         Mesas não têm status operacional. Remover uma mesa não apaga pedidos antigos.
       </p>
     </div>
@@ -801,13 +801,13 @@ function TableRow({
   return (
     <div
       data-testid={`admin-table-${id}`}
-      className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-2"
+      className="flex items-center gap-2 rounded-lg border border-[#e9d7c2] bg-white/50 p-2"
     >
       <Input
         data-testid={`admin-table-input-${id}`}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="h-9 border-zinc-800 bg-zinc-950"
+        className="h-9 border-[#e9d7c2] bg-[#fffaf3]"
       />
       <Button
         size="sm"
@@ -876,7 +876,7 @@ function RestaurantTab() {
         )
       : null);
 
-  if (!current) return <Loader2 className="size-5 animate-spin text-zinc-400" aria-hidden />;
+  if (!current) return <Loader2 className="size-5 animate-spin text-[#72594a]" aria-hidden />;
 
   return (
     <div className="max-w-xl space-y-3">
@@ -891,7 +891,7 @@ function RestaurantTab() {
             onChange={(e) =>
               setForm({ ...(current as Record<string, string>), [field.key]: e.target.value })
             }
-            className="border-zinc-800 bg-zinc-950"
+            className="border-[#e9d7c2] bg-[#fffaf3]"
           />
         </div>
       ))}
@@ -900,7 +900,7 @@ function RestaurantTab() {
         <Button
           data-testid="admin-restaurant-save"
           disabled={busy}
-          className="bg-orange-600 text-white hover:bg-orange-500"
+          className="bg-[#b94f19] text-white hover:bg-orange-500"
           onClick={async () => {
             setBusy(true);
             try {
@@ -923,7 +923,7 @@ function RestaurantTab() {
           <Save className="mr-1.5 size-4" aria-hidden />
           Salvar informações
         </Button>
-        <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-zinc-700 px-3 py-2 text-sm text-zinc-300 hover:border-zinc-500">
+        <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[#d6bda4] px-3 py-2 text-sm text-[#604737] hover:border-zinc-500">
           <Upload className="size-4" aria-hidden />
           Trocar logo
           <input
@@ -948,7 +948,7 @@ function RestaurantTab() {
           />
         </label>
       </div>
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-[#796452]">
         Campos vazios aparecem como “A informar” no site — nada é inventado.
       </p>
     </div>
