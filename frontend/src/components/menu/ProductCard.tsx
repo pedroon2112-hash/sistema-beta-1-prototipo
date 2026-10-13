@@ -25,7 +25,7 @@ export default function ProductCard({ product, onOpen }: ProductCardProps) {
       type="button"
       data-testid={`product-card-${product.id}`}
       onClick={() => onOpen(product)}
-      className="group flex w-full gap-3 rounded-xl border border-[#e9d7c2] bg-white p-3 text-left transition-colors duration-200 hover:border-[#b94f19]/60 hover:bg-white"
+      className="group flex w-full gap-3 rounded-xl border border-[#e9d7c2] bg-white p-3 text-left transition-[background-color,border-color,box-shadow] duration-200 hover:border-[#b94f19]/70 hover:bg-[#f1e1cf] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b94f19]"
     >
       <img
         src={product.image}
@@ -44,7 +44,7 @@ export default function ProductCard({ product, onOpen }: ProductCardProps) {
         )}
         <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-1">
           <div>
-            {hasVariants && <p className="text-[11px] text-[#33251e]0">a partir de</p>}
+            {hasVariants && <p className="text-[11px] text-[#796452]">a partir de</p>}
             <p
               data-testid={`product-price-${product.id}`}
               className="font-heading text-lg font-bold text-[#b94f19]"
