@@ -17,7 +17,7 @@ export default function CartBar({ count, subtotalCents, onOpenCart }: CartBarPro
         type="button"
         data-testid="floating-cart-bar"
         onClick={onOpenCart}
-        className="mx-auto flex w-full max-w-xl items-center justify-between gap-3 rounded-full bg-orange-600 px-5 py-3.5 text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500"
+        className="mx-auto flex w-full max-w-xl items-center justify-between gap-3 rounded-full bg-[#b94f19] px-5 py-3.5 text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500"
         aria-label={`Abrir carrinho, ${count} itens, total ${formatCents(subtotalCents)}`}
       >
         <span className="flex items-center gap-2 text-sm font-semibold">
