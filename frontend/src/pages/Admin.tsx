@@ -140,18 +140,18 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
         <p className="mt-1 text-sm text-[#72594a]">Acesso restrito ao restaurante.</p>
         <div className="mt-4 grid gap-3">
           <div className="grid gap-1.5">
-            <Label htmlFor="admin-user">Usuário</Label>
+            <Label htmlFor="admin-user" className="!text-[#33251e]">Usuário</Label>
             <Input
               id="admin-user"
               data-testid="admin-login-username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
-              className="border-[#e9d7c2] bg-[#fffaf3]"
+              className="!h-10 !border-[#c9a98b] !bg-white !text-[#33251e] !opacity-100 placeholder:!text-[#806958] focus-visible:!border-[#b94f19] focus-visible:!ring-[#b94f19]/25"
             />
           </div>
           <div className="grid gap-1.5">
-            <Label htmlFor="admin-pass">Senha</Label>
+            <Label htmlFor="admin-pass" className="!text-[#33251e]">Senha</Label>
             <Input
               id="admin-pass"
               data-testid="admin-login-password"
@@ -160,7 +160,7 @@ function LoginScreen({ onLogged }: { onLogged: () => void }) {
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && submit()}
               autoComplete="current-password"
-              className="border-[#e9d7c2] bg-[#fffaf3]"
+              className="!h-10 !border-[#c9a98b] !bg-white !text-[#33251e] !opacity-100 placeholder:!text-[#806958] focus-visible:!border-[#b94f19] focus-visible:!ring-[#b94f19]/25"
             />
           </div>
           {error && (
