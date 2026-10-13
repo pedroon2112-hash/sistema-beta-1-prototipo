@@ -31,7 +31,7 @@ export default function TableSelect() {
             to="/"
             data-testid="back-home-link"
             aria-label="Voltar ao início"
-            className="flex size-10 items-center justify-center rounded-lg border border-[#e9d7c2] text-[#604737] transition-colors hover:border-zinc-600"
+            className="flex size-10 items-center justify-center rounded-lg border border-[#e9d7c2] text-[#604737] transition-colors hover:border-[#b94f19] hover:bg-[#f1e1cf]"
           >
             <ArrowLeft className="size-5" aria-hidden />
           </Link>
@@ -75,10 +75,10 @@ export default function TableSelect() {
                 data-testid={`table-option-btn-${shortLabel}`}
                 aria-pressed={selected}
                 onClick={() => setTable(t.label)}
-                className={`flex h-20 flex-col items-center justify-center rounded-xl border transition-colors duration-200 ${
+                className={`flex h-20 flex-col items-center justify-center rounded-xl border transition-[background-color,border-color,color,box-shadow] duration-200 ${
                   selected
-                    ? "border-[#b94f19] bg-[#b94f19] text-white shadow-lg shadow-orange-950/40"
-                    : "border-[#e9d7c2] bg-white/80 text-[#4a2d1f] hover:border-zinc-600"
+                    ? "border-[#b94f19] bg-[#b94f19] text-white shadow-md hover:bg-[#a44416] hover:border-[#a44416]"
+                    : "border-[#e9d7c2] bg-white/80 text-[#4a2d1f] hover:border-[#b94f19]/70 hover:bg-[#f1e1cf] hover:shadow-md"
                 }`}
               >
                 <span className="font-heading text-lg font-bold">Mesa</span>
@@ -99,7 +99,7 @@ export default function TableSelect() {
                 navigate("/cardapio");
               }
             }}
-            className="h-14 w-full rounded-xl bg-[#b94f19] font-heading text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="h-14 w-full rounded-xl bg-[#b94f19] font-heading text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-[#a44416] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {selectedLabel === null
               ? "Escolha uma mesa para continuar"
