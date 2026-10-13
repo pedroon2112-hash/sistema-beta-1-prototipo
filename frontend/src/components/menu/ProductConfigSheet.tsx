@@ -220,7 +220,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                     className={`flex min-h-12 flex-col items-center justify-center rounded-lg border px-3 py-2 transition-colors duration-200 ${
                       selected
                         ? "border-[#b94f19] bg-[#ffe5c4] shadow-sm text-[#b94f19]"
-                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-[#c4a78d]"
+                        : "border-[#e9d7c2] bg-white text-[#604737] hover:border-[#b94f19] hover:bg-[#f1e1cf]"
                     }`}
                   >
                     <span className="text-sm font-medium">{v.label}</span>
