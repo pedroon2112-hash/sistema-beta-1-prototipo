@@ -65,8 +65,8 @@ export default function ProductConfigSheet({
           style={isMobile ? { height: "92svh" } : undefined}
           className={
             isMobile
-              ? "flex flex-col gap-0 rounded-t-2xl p-0"
-              : "flex w-full flex-col gap-0 p-0 sm:max-w-md"
+              ? "flex flex-col gap-0 rounded-t-2xl bg-[#fffaf3] text-[#33251e] p-0"
+              : "flex w-full flex-col gap-0 bg-[#fffaf3] text-[#33251e] p-0 sm:max-w-md"
           }
         >
           <ConfigForm
@@ -181,7 +181,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
 
   return (
     <>
-      <div className="shrink-0">
+      <div className="shrink-0 bg-[#fffaf3]">
         <img
           src={product.image}
           alt={product.name}
@@ -219,7 +219,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                     onClick={() => setVariantId(v.id)}
                     className={`flex min-h-12 flex-col items-center justify-center rounded-lg border px-3 py-2 transition-colors duration-200 ${
                       selected
-                        ? "border-[#b94f19] bg-[#fff0d7] text-[#b94f19]"
+                        ? "border-[#b94f19] bg-[#ffe5c4] shadow-sm text-[#b94f19]"
                         : "border-[#e9d7c2] bg-white text-[#604737] hover:border-[#c4a78d]"
                     }`}
                   >
@@ -255,7 +255,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                 )}
               </div>
               {g.hint && (
-                <p className="mt-0.5 text-xs text-[#33251e]0">{g.hint}</p>
+                <p className="mt-0.5 text-xs text-[#796452]">{g.hint}</p>
               )}
 
               <div className="mt-2 grid gap-2">
@@ -327,7 +327,7 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                         className={`flex min-h-12 items-center justify-between gap-2 rounded-lg border px-3 py-2 text-left transition-colors duration-200 ${
                           selected
                             ? "border-[#b94f19] bg-[#fff0d7]"
-                            : "border-[#e9d7c2] bg-white hover:border-[#c4a78d]"
+                            : "border-[#e9d7c2] bg-white hover:bg-[#f2e4d3] hover:border-[#b94f19] hover:shadow-sm"
                         }`}
                       >
                         <span className="text-sm font-medium text-[#33251e]">
@@ -360,8 +360,8 @@ function ConfigForm({ product, onAdd }: ConfigFormProps) {
                         selected
                           ? "border-[#b94f19] bg-[#fff0d7]"
                           : blocked
-                            ? "border-[#e9d7c2] bg-white opacity-40"
-                            : "border-[#e9d7c2] bg-white hover:border-[#c4a78d]"
+                            ? "border-[#e9d7c2] bg-[#f8f2ea] opacity-45"
+                            : "border-[#e9d7c2] bg-white hover:bg-[#f2e4d3] hover:border-[#b94f19] hover:shadow-sm"
                       }`}
                     >
                       <span className="text-sm font-medium text-[#33251e]">
