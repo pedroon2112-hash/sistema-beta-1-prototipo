@@ -2,7 +2,9 @@
 const API_ORIGIN = import.meta.env.PROD
   ? "https://sistema-beta-1-prototipo.onrender.com"
   : "";
-const BASE = `${API_ORIGIN}/api`;
+export const API_ORIGIN_URL = API_ORIGIN;
+export const API_BASE = `${API_ORIGIN}/api`;
+const BASE = API_BASE;
 
 // Fields are declared, not constructor parameter properties: tsconfig sets
 // erasableSyntaxOnly, which rejects `constructor(readonly status: number)`.
