@@ -24,38 +24,38 @@ export default function TableSelect() {
   const fromQr = Boolean(qrTable) && table === null;
 
   return (
-    <div className="flex min-h-svh flex-col bg-zinc-950 text-zinc-100">
-      <header className="border-b border-zinc-800/80 bg-zinc-950/90">
+    <div className="flex min-h-svh flex-col bg-[#fffaf3] text-[#33251e]">
+      <header className="border-b border-[#e9d7c2]/80 bg-[#fffaf3]/90">
         <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
           <Link
             to="/"
             data-testid="back-home-link"
             aria-label="Voltar ao início"
-            className="flex size-10 items-center justify-center rounded-lg border border-zinc-800 text-zinc-300 transition-colors hover:border-zinc-600"
+            className="flex size-10 items-center justify-center rounded-lg border border-[#e9d7c2] text-[#604737] transition-colors hover:border-zinc-600"
           >
             <ArrowLeft className="size-5" aria-hidden />
           </Link>
-          <h1 className="font-heading text-lg font-bold text-zinc-50">
+          <h1 className="font-heading text-lg font-bold text-[#33251e]">
             No local
           </h1>
         </div>
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-        <div className="flex items-center gap-2 text-orange-500">
+        <div className="flex items-center gap-2 text-[#b94f19]">
           <MapPin className="size-5" aria-hidden />
-          <h2 className="font-heading text-xl font-bold tracking-tight text-zinc-50">
+          <h2 className="font-heading text-xl font-bold tracking-tight text-[#33251e]">
             Selecione sua mesa
           </h2>
         </div>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-[#72594a]">
           Toque no número da mesa onde você está sentado.
         </p>
 
         {fromQr && (
           <p
             data-testid="table-qr-hint"
-            className="mt-3 rounded-lg border border-orange-600/50 bg-orange-950/30 px-3 py-2 text-sm text-orange-300"
+            className="mt-3 rounded-lg border border-[#b94f19]/50 bg-[#fff0d7]/30 px-3 py-2 text-sm text-[#9c4519]"
           >
             Identificamos sua mesa pelo link — {qrTable?.label} já selecionada.
           </p>
@@ -77,8 +77,8 @@ export default function TableSelect() {
                 onClick={() => setTable(t.label)}
                 className={`flex h-20 flex-col items-center justify-center rounded-xl border transition-colors duration-200 ${
                   selected
-                    ? "border-orange-600 bg-orange-600 text-white shadow-lg shadow-orange-950/40"
-                    : "border-zinc-800 bg-zinc-900/80 text-zinc-200 hover:border-zinc-600"
+                    ? "border-[#b94f19] bg-[#b94f19] text-white shadow-lg shadow-orange-950/40"
+                    : "border-[#e9d7c2] bg-white/80 text-[#4a2d1f] hover:border-zinc-600"
                 }`}
               >
                 <span className="font-heading text-lg font-bold">Mesa</span>
@@ -99,7 +99,7 @@ export default function TableSelect() {
                 navigate("/cardapio");
               }
             }}
-            className="h-14 w-full rounded-xl bg-orange-600 font-heading text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="h-14 w-full rounded-xl bg-[#b94f19] font-heading text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-colors duration-200 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {selectedLabel === null
               ? "Escolha uma mesa para continuar"
