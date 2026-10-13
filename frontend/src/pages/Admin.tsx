@@ -19,7 +19,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { adminApi, parseCents } from "@/lib/adminApi";
 import type { OrderSummary, TableGroup, YearNode } from "@/lib/adminApi";
-import type { Catalog, Product } from "@/data/types";
+import type { Catalog, Product, OptionGroupDef } from "@/data/types";
 import { formatCents, formatDateBR, downloadComanda } from "@/lib/format";
 import { ApiError } from "@/lib/api";
 
@@ -522,6 +522,7 @@ function ProductRow({
     ),
   );
   const [busy, setBusy] = useState(false);
+  const [showAccompaniments, setShowAccompaniments] = useState(false);
 
   async function save() {
     setBusy(true);
@@ -692,6 +693,15 @@ function ProductRow({
             <Star className="mr-1 size-3.5" aria-hidden />
             {featured ? "Destaque" : "Destacar"}
           </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            data-testid={`admin-accompaniments-${product.id}`}
+            onClick={() => setShowAccompaniments((v) => !v)}
+            disabled={busy}
+          >
+            {showAccompaniments ? "Fechar acompanhamentos" : "Acompanhamentos"}
+          </Button>
           <label className="inline-flex cursor-pointer items-center gap-1 rounded-md border border-[#d6bda4] px-2 py-1.5 text-xs text-[#604737] hover:border-[#b94f19]">
             <Upload className="size-3.5" aria-hidden />
             Foto
@@ -719,6 +729,13 @@ function ProductRow({
           </Button>
         </div>
       </div>
+      {showAccompaniments && (
+        <AccompanimentEditor
+          product={product}
+          onChanged={onChanged}
+          onClose={() => setShowAccompaniments(false)}
+        />
+      )}
       {!product.available && (
         <p className="mt-2 text-xs text-amber-400">
           Indisponível — não aparece no cardápio público.
@@ -727,6 +744,146 @@ function ProductRow({
     </div>
   );
 }
+function AccompanimentEditor({
+  product,
+  onChanged,
+  onClose,
+}: {
+  product: Product;
+  onChanged: () => Promise<void>;
+  onClose: () => void;
+}) {
+  // Edita apenas o grupo de acompanhamentos, preservando os outros
+  // (sabores de pizza, adicionais pagos etc.) ao salvar no backend.
+  const existing = product.optionGroups.find((g) => /acompanh/i.test(g.label) || /acompanh/i.test(g.id));
+  const [label, setLabel] = useState(existing?.label ?? "Acompanhamentos");
+  const [limit, setLimit] = useState(existing?.maxSelect ?? 3);
+  const [required, setRequired] = useState(existing?.required ?? false);
+  const [free, setFree] = useState(existing?.noExtraCost ?? true);
+  const [options, setOptions] = useState(
+    (existing?.options ?? []).map((o) => ({
+      id: o.id,
+      label: o.label,
+      price: (o.priceCents / 100).toFixed(2).replace(".", ","),
+    })),
+  );
+  const [saving, setSaving] = useState(false);
+
+  async function saveAccompaniments() {
+    const clean = options.filter((o) => o.label.trim());
+    if (!label.trim()) return toast.error("Informe o nome do grupo.");
+    if (!Number.isInteger(limit) || limit < 1) return toast.error("O limite deve ser pelo menos 1.");
+    if (!clean.length) return toast.error("Adicione pelo menos um acompanhamento.");
+    if (limit > clean.length) return toast.error("O limite não pode superar a quantidade de opções.");
+    const parsed = clean.map((o) => ({
+      optionKey: o.id || undefined,
+      label: o.label.trim(),
+      priceCents: free ? 0 : parseCents(o.price),
+    }));
+    if (parsed.some((o) => o.priceCents === null)) return toast.error("Preço de acompanhamento inválido.");
+    const group = {
+      groupKey: existing?.id || "acompanhamentos",
+      label: label.trim(),
+      hint: `Escolha até ${limit} acompanhamento(s).`,
+      required,
+      minSelect: required ? 1 : 0,
+      maxSelect: limit,
+      noExtraCost: free,
+      allowQuantity: false,
+      options: parsed,
+    };
+    const preserved = product.optionGroups.filter((g) => g !== existing).map((g: OptionGroupDef) => ({
+      groupKey: g.id,
+      label: g.label,
+      hint: g.hint,
+      required: g.required,
+      minSelect: g.minSelect,
+      maxSelect: g.maxSelect,
+      noExtraCost: g.noExtraCost,
+      allowQuantity: g.allowQuantity,
+      options: g.options.map((o) => ({ optionKey: o.id, label: o.label, priceCents: o.priceCents })),
+    }));
+    const at = existing ? product.optionGroups.indexOf(existing) : preserved.length;
+    preserved.splice(at, 0, group as typeof preserved[number]);
+    setSaving(true);
+    try {
+      await adminApi.setOptionGroups(product.id, preserved);
+      await onChanged();
+      toast.success("Acompanhamentos salvos");
+      onClose();
+    } catch (err) {
+      toast.error((err as Error).message || "Não foi possível salvar os acompanhamentos.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="mt-3 space-y-3 rounded-xl border border-[#d6bda4] bg-[#fffaf3] p-3" data-testid={`admin-accompaniments-editor-${product.id}`}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-heading font-bold text-[#33251e]">Configurar acompanhamentos</h3>
+        <Button variant="ghost" size="sm" onClick={onClose}>Fechar</Button>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-1">
+          <Label>Nome do grupo</Label>
+          <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Acompanhamentos" />
+        </div>
+        <div className="grid gap-1">
+          <Label>Máximo de escolhas</Label>
+          <Input type="number" min={1} step={1} value={limit} onChange={(e) => setLimit(Number(e.target.value))} />
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-4 text-sm text-[#33251e]">
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={required} onChange={(e) => setRequired(e.target.checked)} />
+          Escolha obrigatória
+        </label>
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={free} onChange={(e) => setFree(e.target.checked)} />
+          Inclusos no preço do prato
+        </label>
+      </div>
+      <div className="space-y-2">
+        <Label>Opções disponíveis</Label>
+        {options.map((option, index) => (
+          <div key={index} className="flex flex-wrap items-center gap-2">
+            <Input
+              className="min-w-36 flex-1"
+              aria-label={`Nome do acompanhamento ${index + 1}`}
+              value={option.label}
+              placeholder="Ex.: Arroz branco"
+              onChange={(e) => setOptions((prev) => prev.map((o, i) => i === index ? { ...o, label: e.target.value } : o))}
+            />
+            {!free && (
+              <Input
+                className="w-24"
+                aria-label={`Preço do acompanhamento ${index + 1}`}
+                value={option.price}
+                placeholder="0,00"
+                onChange={(e) => setOptions((prev) => prev.map((o, i) => i === index ? { ...o, price: e.target.value } : o))}
+              />
+            )}
+            <Button variant="outline" size="sm" aria-label={`Remover acompanhamento ${index + 1}`} onClick={() => setOptions((prev) => prev.filter((_, i) => i !== index))}>
+              <Trash2 className="size-4" />
+            </Button>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Button variant="outline" size="sm" onClick={() => setOptions((prev) => [...prev, { id: "", label: "", price: "0,00" }])}>
+          <Plus className="mr-1 size-4" /> Adicionar opção
+        </Button>
+        <Button size="sm" disabled={saving} onClick={saveAccompaniments} className="bg-[#b94f19] text-white hover:bg-[#a44416]">
+          {saving ? <Loader2 className="mr-1 size-4 animate-spin" /> : <Save className="mr-1 size-4" />}
+          Salvar acompanhamentos
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+
 
 function TablesTab() {
   const queryClient = useQueryClient();
