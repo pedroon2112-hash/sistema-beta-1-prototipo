@@ -25,7 +25,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
   return (
     <header
       data-testid="app-header"
-      className="sticky top-0 z-40 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-md shadow-md"
+      className="sticky top-0 z-40 border-b-4 border-[#f58a1f] bg-[#33251e] text-[#fff9f0] backdrop-blur-md shadow-lg shadow-[#33251e]/20"
     >
       <div className="mx-auto flex h-16 max-w-5xl items-center gap-3 px-4">
         <Link
@@ -39,9 +39,9 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             alt={`Logo ${info.name}`}
             className="h-10 w-10 shrink-0 rounded-md object-contain"
           />
-          <span className="truncate font-heading text-lg font-bold tracking-tight text-zinc-50">
+          <span className="truncate font-heading text-lg font-bold tracking-tight text-[#33251e]">
             GalegonN
-            <span className="ml-1.5 hidden text-xs font-medium uppercase tracking-widest text-zinc-400 sm:inline">
+            <span className="ml-1.5 hidden text-xs font-medium uppercase tracking-widest text-[#f6d28a] sm:inline">
               Restaurante e Pizzaria
             </span>
           </span>
@@ -56,7 +56,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                     data-testid="header-mode-badge"
                     variant="outline"
                     size="sm"
-                    className="gap-1.5 border-orange-600/50 bg-orange-950/30 text-orange-400 hover:bg-orange-950/60 hover:text-orange-300"
+                    className="gap-1.5 border-[#b94f19]/50 bg-[#fff0d7]/30 text-[#a84a17] hover:bg-[#f9e4c6]/60 hover:text-orange-300"
                   />
                 }
               >
@@ -139,7 +139,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             data-testid="header-cart-button"
             variant="outline"
             size="sm"
-            className="relative gap-1.5"
+            className="relative gap-1.5 border-[#f6d28a]/50 bg-[#fff9f0] text-[#33251e] hover:bg-[#f6d28a]"
             onClick={onOpenCart}
             aria-label={`Abrir carrinho, ${cartCount} itens`}
           >
@@ -148,7 +148,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             {cartCount > 0 && (
               <span
                 data-testid="header-cart-badge"
-                className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-600 px-1 text-xs font-bold text-white animate-cart-pop"
+                className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#b94f19] px-1 text-xs font-bold text-white animate-cart-pop"
                 key={cartCount}
               >
                 {cartCount}
