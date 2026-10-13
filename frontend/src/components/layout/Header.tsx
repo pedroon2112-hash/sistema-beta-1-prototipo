@@ -39,7 +39,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             alt={`Logo ${info.name}`}
             className="h-11 w-11 shrink-0 rounded-lg bg-white p-0.5 object-contain"
           />
-          <span className="truncate font-heading text-lg font-bold tracking-tight text-[#33251e]">
+          <span className="truncate font-heading text-lg font-bold tracking-tight !text-[#fff9f0]">
             GalegonN
             <span className="ml-1.5 hidden text-xs font-medium uppercase tracking-widest text-[#f6d28a] sm:inline">
               Restaurante e Pizzaria
