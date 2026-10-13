@@ -18,15 +18,15 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-start gap-2.5" data-testid={testId}>
-      <span className="mt-0.5 text-orange-500" aria-hidden>
+      <span className="mt-0.5 text-[#b94f19]" aria-hidden>
         {icon}
       </span>
       <div className="min-w-0 text-sm">
-        <p className="font-medium text-zinc-300">{label}</p>
+        <p className="font-medium text-[#e9d7c2]">{label}</p>
         {value ? (
-          <p className="break-words text-zinc-400">{value}</p>
+          <p className="break-words text-[#e9d7c2]">{value}</p>
         ) : (
-          <p className="italic text-zinc-500">A informar</p>
+          <p className="italic text-[#e9d7c2]">A informar</p>
         )}
       </div>
     </div>
@@ -40,7 +40,7 @@ export default function Footer() {
   return (
     <footer
       data-testid="footer"
-      className="border-t border-zinc-800/80 bg-zinc-950 pb-24 md:pb-10"
+      className="border-t-4 border-[#f58a1f] bg-[#33251e] text-[#fff9f0] pb-24 md:pb-10"
     >
       <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-3">
@@ -50,12 +50,12 @@ export default function Footer() {
             className="h-16 w-16 rounded-lg object-contain"
           />
           <div>
-            <p className="font-heading text-lg font-bold text-zinc-50">GalegonN</p>
-            <p className="text-sm uppercase tracking-widest text-orange-500">
+            <p className="font-heading text-lg font-bold text-[#fff9f0]">GalegonN</p>
+            <p className="text-sm uppercase tracking-widest text-[#b94f19]">
               {info.tagline}
             </p>
           </div>
-          <p className="max-w-xs text-sm text-zinc-500">
+          <p className="max-w-xs text-sm text-[#e9d7c2]">
             Faça seu pedido no local pelo nosso cardápio digital ou receba em casa no
             modo delivery.
           </p>
@@ -89,8 +89,8 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 sm:items-end">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-400 sm:max-w-xs">
-            <p className="font-medium text-zinc-200">Pedidos digitais</p>
+          <div className="rounded-lg border border-[#f6d28a]/30 bg-[#4a3429]/70 p-4 text-sm text-[#e9d7c2] sm:max-w-xs">
+            <p className="font-medium text-[#e9d7c2]">Pedidos digitais</p>
             <p className="mt-1">
               Peça direto pelo cardápio: o pedido é registrado e a comanda é gerada
               na hora.
@@ -99,7 +99,7 @@ export default function Footer() {
           <Link
             to="/admin"
             data-testid="footer-admin-link"
-            className="inline-flex items-center gap-1.5 text-xs text-zinc-500 transition-colors hover:text-orange-500"
+            className="inline-flex items-center gap-1.5 text-xs text-[#e9d7c2] transition-colors hover:text-[#b94f19]"
           >
             <Lock className="size-3" aria-hidden />
             Admin
@@ -107,8 +107,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-zinc-800/60 py-4">
-        <p className="text-center text-xs text-zinc-500">
+      <div className="border-t border-[#f6d28a]/20 py-4">
+        <p className="text-center text-xs text-[#e9d7c2]">
           © {new Date().getFullYear()} GalegonN Restaurante e Pizzaria
         </p>
       </div>
