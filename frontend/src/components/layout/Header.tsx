@@ -31,13 +31,13 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
         <Link
           to="/"
           data-testid="header-home-link"
-          className="flex min-w-0 items-center gap-2.5"
+          className="flex min-w-0 items-center gap-3"
           aria-label="Voltar ao início"
         >
           <img
             src={info.logo}
             alt={`Logo ${info.name}`}
-            className="h-10 w-10 shrink-0 rounded-md object-contain"
+            className="h-11 w-11 shrink-0 rounded-lg bg-white p-0.5 object-contain"
           />
           <span className="truncate font-heading text-lg font-bold tracking-tight text-[#33251e]">
             GalegonN
@@ -56,7 +56,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
                     data-testid="header-mode-badge"
                     variant="outline"
                     size="sm"
-                    className="gap-1.5 border-[#b94f19]/50 bg-[#fff0d7]/30 text-[#a84a17] hover:bg-[#f9e4c6]/60 hover:text-orange-300"
+                    className="gap-1.5 border-[#f6d28a]/50 bg-[#4c3528] text-[#ffe4b6] hover:bg-[#634332] hover:text-white"
                   />
                 }
               >
@@ -139,7 +139,7 @@ export default function Header({ cartCount, onOpenCart }: HeaderProps) {
             data-testid="header-cart-button"
             variant="outline"
             size="sm"
-            className="relative gap-1.5 border-[#f6d28a]/50 bg-[#fff9f0] text-[#33251e] hover:bg-[#f6d28a]"
+            className="relative gap-1.5 border-[#f6d28a]/60 bg-[#fff9f0] text-[#33251e] hover:bg-[#f6d28a] hover:text-[#33251e]"
             onClick={onOpenCart}
             aria-label={`Abrir carrinho, ${cartCount} itens`}
           >
