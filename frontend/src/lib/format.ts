@@ -1,3 +1,5 @@
+import { API_ORIGIN_URL } from "@/lib/api";
+
 // Formatação pt-BR. Dinheiro chega em CENTAVOS inteiros do backend.
 
 export function formatCents(cents: number): string {
@@ -23,13 +25,18 @@ export function formatDateBR(dateIso: string): string {
   return `${d}/${m}/${y}`;
 }
 
-/** Dispara o download da comanda sem depender de popup. */
-export function downloadComanda(url: string, filename: string): void {
+/** Busca o PDF no Render e baixa o arquivo real, inclusive em outra origem. */
+export async function downloadComanda(url: string, filename: string): Promise<void> {
+  const target = new URL(url, API_ORIGIN_URL || window.location.origin);
+  const response = await fetch(target.toString(), { credentials: "include" });
+  if (!response.ok) throw new Error("Falha ao baixar comanda");
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href = url;
+  link.href = objectUrl;
   link.download = filename;
-  link.rel = "noopener";
   document.body.appendChild(link);
   link.click();
   link.remove();
+  setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
 }
