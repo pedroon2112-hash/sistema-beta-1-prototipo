@@ -13,10 +13,10 @@ export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselP
   return (
     <section aria-labelledby="featured-title" data-testid="featured-carousel">
       <div className="flex items-center gap-2">
-        <Flame className="size-5 text-orange-500" aria-hidden />
+        <Flame className="size-5 text-[#b94f19]" aria-hidden />
         <h2
           id="featured-title"
-          className="font-heading text-xl font-bold tracking-tight text-zinc-50"
+          className="font-heading text-xl font-bold tracking-tight text-[#33251e]"
         >
           Mais Pedidos
         </h2>
@@ -29,7 +29,7 @@ export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselP
             type="button"
             data-testid={`featured-card-${product.id}`}
             onClick={() => onOpen(product)}
-            className="w-52 shrink-0 snap-start overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/70 text-left transition-colors duration-200 hover:border-orange-600/60 sm:w-60"
+            className="w-52 shrink-0 snap-start overflow-hidden rounded-xl border border-[#e9d7c2] bg-white text-left transition-colors duration-200 hover:border-[#b94f19]/60 sm:w-60"
           >
             <div className="relative">
               <img
@@ -38,28 +38,28 @@ export default function FeaturedCarousel({ products, onOpen }: FeaturedCarouselP
                 loading="lazy"
                 className="h-32 w-full object-cover"
               />
-              <span className="absolute top-2 left-2 rounded-full bg-orange-600 px-2 py-0.5 text-[11px] font-bold text-white shadow">
+              <span className="absolute top-2 left-2 rounded-full bg-[#b94f19] px-2 py-0.5 text-[11px] font-bold text-white shadow">
                 {index === 0 ? "Mais vendido" : `#${index + 1}`}
               </span>
             </div>
             <div className="p-3">
-              <h3 className="truncate font-heading text-sm font-semibold text-zinc-50">
+              <h3 className="truncate font-heading text-sm font-semibold text-[#33251e]">
                 {product.name}
               </h3>
               {product.description && (
-                <p className="line-clamp-1 text-xs text-zinc-400">{product.description}</p>
+                <p className="line-clamp-1 text-xs text-[#72594a]">{product.description}</p>
               )}
               <div className="mt-2 flex items-center justify-between">
                 <div>
                   {product.variants.length > 0 && (
-                    <p className="text-[11px] text-zinc-500">a partir de</p>
+                    <p className="text-[11px] text-[#33251e]0">a partir de</p>
                   )}
-                  <span className="font-heading text-base font-bold text-orange-500">
+                  <span className="font-heading text-base font-bold text-[#b94f19]">
                     {formatCents(minPriceCents(product))}
                   </span>
                 </div>
                 <span
-                  className="flex size-8 items-center justify-center rounded-full bg-orange-600 text-white"
+                  className="flex size-8 items-center justify-center rounded-full bg-[#b94f19] text-white"
                   aria-hidden
                 >
                   <Plus className="size-4" />
